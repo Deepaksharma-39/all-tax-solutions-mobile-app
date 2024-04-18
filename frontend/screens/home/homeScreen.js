@@ -146,12 +146,12 @@ const HomeScreen = ({navigation}) => {
     <View style={{flex: 1, backgroundColor: Colors.whiteColor}}>
       <MyStatusBar />
       <View style={{flex: 1}}>
-        {header()}
+        {/* {header()} */}
         <FlatList
           ListHeaderComponent={
             <>
-              {searchInfo()}
-              {features()}
+              {/* {searchInfo()} */}
+              {/* {features()} */}
               {banner()}
               {quickReachargesAndBillPaysInfo()}
               {offersRewardsAndInviteNowOptions()}

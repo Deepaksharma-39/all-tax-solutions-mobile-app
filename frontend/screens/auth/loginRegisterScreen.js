@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, { useState, useCallback } from "react";
 import {
   BackHandler,
   View,
@@ -10,17 +10,27 @@ import {
   ImageBackground,
   TouchableOpacity,
   Platform,
-} from 'react-native';
-import {Colors, Fonts, Sizes, commonStyles, screenHeight, screenWidth} from '../../constants/styles';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useFocusEffect} from '@react-navigation/native';
-import MyStatusBar from '../../components/myStatusBar';
+} from "react-native";
+import axios from 'axios';
+import {
+  Colors,
+  Fonts,
+  Sizes,
+  commonStyles,
+  screenHeight,
+  screenWidth,
+} from "../../constants/styles";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { useFocusEffect } from "@react-navigation/native";
+import MyStatusBar from "../../components/myStatusBar";
 
-const LoginScreen = ({navigation}) => {
+const LoginScreen = ({ navigation }) => {
+  const domain = process.env.REACT_APP_API_DOMAIN;
+
   const backAction = () => {
-    if (Platform.OS == 'ios') {
-      navigation.addListener('beforeRemove', e => {
+    if (Platform.OS == "ios") {
+      navigation.addListener("beforeRemove", (e) => {
         e.preventDefault();
       });
     } else {
@@ -31,13 +41,13 @@ const LoginScreen = ({navigation}) => {
 
   useFocusEffect(
     useCallback(() => {
-      BackHandler.addEventListener('hardwareBackPress', backAction);
-      navigation.addListener('gestureEnd', backAction);
+      BackHandler.addEventListener("hardwareBackPress", backAction);
+      navigation.addListener("gestureEnd", backAction);
       return () => {
-        BackHandler.removeEventListener('hardwareBackPress', backAction);
-        navigation.removeListener('gestureEnd', backAction);
+        BackHandler.removeEventListener("hardwareBackPress", backAction);
+        navigation.removeListener("gestureEnd", backAction);
       };
-    }, [backAction]),
+    }, [backAction])
   );
 
   function _spring() {
@@ -63,7 +73,7 @@ const LoginScreen = ({navigation}) => {
     secureLoginPassword: true,
   });
 
-  const updateState = data => setState(state => ({...state, ...data}));
+  const updateState = (data) => setState((state) => ({ ...state, ...data }));
 
   const {
     loginMobileNo,
@@ -79,14 +89,42 @@ const LoginScreen = ({navigation}) => {
     secureLoginPassword,
   } = state;
 
+const handleRegister=async()=>{
+        
+    try {
+      const response = await axios.post(`http://192.168.56.1:4000/users/register`, {
+        fullName:state.fullName,
+        mobile:state.loginMobileNo,
+        email:state.email,
+        password:state.loginPassword
+      });
+
+      // Handle successful authentication
+      console.log("Authentication successful:", response.data);
+      window.localStorage.setItem("userData", JSON.stringify(response.data));
+      window.localStorage.setItem("Token", response.data.token);
+      navigate("BottomTabBar");
+    } catch (error) {
+      // Handle authentication failure
+      console.error(
+        "Authentication error:",
+        error
+      );
+      setError(
+        "Authentication failed. Please check your username and password."
+      )
+  };
+}
+
   return (
-    <View style={{flex: 1, backgroundColor: Colors.whiteColor}}>
-      <MyStatusBar color={Colors.secondaryColor}/>
+    <View style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
+      <MyStatusBar color={Colors.secondaryColor} />
       <ImageBackground
-        source={require('../../assets/images/bg2.png')}
-        style={styles.bgImageStyle}>
+        source={require("../../assets/images/bg2.png")}
+        style={styles.bgImageStyle}
+      >
         {appLogo()}
-        <View style={{flex: 1, justifyContent: 'flex-end'}}>
+        <View style={{ flex: 1, justifyContent: "flex-end" }}>
           <ScrollView
             nestedScrollEnabled={true}
             contentContainerStyle={{
@@ -94,7 +132,8 @@ const LoginScreen = ({navigation}) => {
               paddingBottom: Sizes.fixPadding * 2.0,
             }}
             automaticallyAdjustKeyboardInsets={true}
-            showsVerticalScrollIndicator={false}>
+            showsVerticalScrollIndicator={false}
+          >
             {loginRegisterInfo()}
           </ScrollView>
         </View>
@@ -106,7 +145,7 @@ const LoginScreen = ({navigation}) => {
   function exitInfo() {
     return backClickCount == 1 ? (
       <View style={commonStyles.exitWrapper}>
-        <Text style={{...Fonts.whiteColor14SemiBold}}>
+        <Text style={{ ...Fonts.whiteColor14SemiBold }}>
           Press Back Once Again to Exit
         </Text>
       </View>
@@ -124,7 +163,8 @@ const LoginScreen = ({navigation}) => {
               paddingHorizontal: Sizes.fixPadding - 8.0,
               paddingBottom: Sizes.fixPadding,
             }}
-            automaticallyAdjustContentInsets={true}>
+            automaticallyAdjustContentInsets={true}
+          >
             {loginRegisterOptions()}
             {state.viewLoginInfo ? loginInfo() : registerInfo()}
           </ScrollView>
@@ -150,13 +190,14 @@ const LoginScreen = ({navigation}) => {
 
   function alreadyAccountInfo() {
     return (
-      <Text style={{textAlign: 'center'}}>
-        <Text style={{...Fonts.blackColor18SemiBold}}>
+      <Text style={{ textAlign: "center" }}>
+        <Text style={{ ...Fonts.blackColor18SemiBold }}>
           Already have an account? {}
         </Text>
         <Text
-          onPress={() => updateState({viewLoginInfo: true})}
-          style={{...Fonts.primaryColor18Bold}}>
+          onPress={() => updateState({ viewLoginInfo: true })}
+          style={{ ...Fonts.primaryColor18Bold }}
+        >
           Login Now
         </Text>
       </Text>
@@ -167,9 +208,11 @@ const LoginScreen = ({navigation}) => {
     return (
       <TouchableOpacity
         activeOpacity={0.6}
-        onPress={() => navigation.push('Verification', { mobileNumber: loginMobileNo })}
-        style={styles.loginRegisterButtonStyle}>
-        <Text style={{...Fonts.whiteColor22Bold}}>Register</Text>
+        onPress={() =>{navigation.push('BottomTabBar')}}
+        // onPress={() =>{handleRegister()}}
+        style={styles.loginRegisterButtonStyle}
+      >
+        <Text style={{ ...Fonts.whiteColor22Bold }}>Register</Text>
       </TouchableOpacity>
     );
   }
@@ -177,26 +220,30 @@ const LoginScreen = ({navigation}) => {
   function confirmPasswordTextField() {
     return (
       <View
-        style={{justifyContent: 'space-between', ...styles.textFieldWrapStyle}}>
-        <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+        style={{
+          justifyContent: "space-between",
+          ...styles.textFieldWrapStyle,
+        }}
+      >
+        <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
           <MaterialIcons name="lock" color={Colors.grayColor} size={15} />
           <TextInput
             secureTextEntry={secureConfiremPassword}
             value={confirmPassword}
-            onChangeText={text => updateState({confirmPassword: text})}
+            onChangeText={(text) => updateState({ confirmPassword: text })}
             placeholder="Confirm Password"
             placeholderTextColor={Colors.grayColor}
             style={styles.textFieldStyle}
             selectionColor={Colors.primaryColor}
-            textContentType='oneTimeCode'
+            textContentType="oneTimeCode"
           />
         </View>
         <MaterialCommunityIcons
-          name={secureConfiremPassword ? 'eye' : 'eye-off'}
+          name={secureConfiremPassword ? "eye" : "eye-off"}
           color={Colors.grayColor}
           size={15}
           onPress={() =>
-            updateState({secureConfiremPassword: !secureConfiremPassword})
+            updateState({ secureConfiremPassword: !secureConfiremPassword })
           }
         />
       </View>
@@ -208,28 +255,29 @@ const LoginScreen = ({navigation}) => {
       <View
         style={{
           marginBottom: Sizes.fixPadding,
-          justifyContent: 'space-between',
+          justifyContent: "space-between",
           ...styles.textFieldWrapStyle,
-        }}>
-        <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+        }}
+      >
+        <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
           <MaterialIcons name="lock" color={Colors.grayColor} size={15} />
           <TextInput
             secureTextEntry={secureRegisterPassword}
             value={registerPassword}
-            onChangeText={text => updateState({registerPassword: text})}
+            onChangeText={(text) => updateState({ registerPassword: text })}
             placeholder="Create Password"
             placeholderTextColor={Colors.grayColor}
             style={styles.textFieldStyle}
             selectionColor={Colors.primaryColor}
-            textContentType='oneTimeCode'
+            textContentType="oneTimeCode"
           />
         </View>
         <MaterialCommunityIcons
-          name={secureRegisterPassword ? 'eye' : 'eye-off'}
+          name={secureRegisterPassword ? "eye" : "eye-off"}
           color={Colors.grayColor}
           size={15}
           onPress={() =>
-            updateState({secureRegisterPassword: !secureRegisterPassword})
+            updateState({ secureRegisterPassword: !secureRegisterPassword })
           }
         />
       </View>
@@ -239,7 +287,8 @@ const LoginScreen = ({navigation}) => {
   function registerMobileNoTextField() {
     return (
       <View
-        style={{marginBottom: Sizes.fixPadding, ...styles.textFieldWrapStyle}}>
+        style={{ marginBottom: Sizes.fixPadding, ...styles.textFieldWrapStyle }}
+      >
         <MaterialIcons
           name="phone-android"
           color={Colors.grayColor}
@@ -247,7 +296,7 @@ const LoginScreen = ({navigation}) => {
         />
         <TextInput
           value={registerMobileNo}
-          onChangeText={text => updateState({registerMobileNo: text})}
+          onChangeText={(text) => updateState({ registerMobileNo: text })}
           placeholder="Mobile Number"
           placeholderTextColor={Colors.grayColor}
           style={styles.textFieldStyle}
@@ -261,11 +310,12 @@ const LoginScreen = ({navigation}) => {
   function emailAddressTextField() {
     return (
       <View
-        style={{marginBottom: Sizes.fixPadding, ...styles.textFieldWrapStyle}}>
+        style={{ marginBottom: Sizes.fixPadding, ...styles.textFieldWrapStyle }}
+      >
         <MaterialIcons name="email" color={Colors.grayColor} size={15} />
         <TextInput
           value={email}
-          onChangeText={text => updateState({email: text})}
+          onChangeText={(text) => updateState({ email: text })}
           placeholder="Email Address"
           placeholderTextColor={Colors.grayColor}
           style={styles.textFieldStyle}
@@ -283,11 +333,12 @@ const LoginScreen = ({navigation}) => {
           marginBottom: Sizes.fixPadding,
           marginTop: Sizes.fixPadding * 2.5,
           ...styles.textFieldWrapStyle,
-        }}>
+        }}
+      >
         <MaterialIcons name="person" color={Colors.grayColor} size={15} />
         <TextInput
           value={fullName}
-          onChangeText={text => updateState({fullName: text})}
+          onChangeText={(text) => updateState({ fullName: text })}
           placeholder="Full Name"
           placeholderTextColor={Colors.grayColor}
           style={styles.textFieldStyle}
@@ -299,11 +350,11 @@ const LoginScreen = ({navigation}) => {
 
   function welcomeText() {
     return (
-      <View style={{marginTop: Sizes.fixPadding + 5.0, alignItems: 'center'}}>
-        <Text style={{textAlign: 'center', ...Fonts.blackColor20Bold}}>
+      <View style={{ marginTop: Sizes.fixPadding + 5.0, alignItems: "center" }}>
+        <Text style={{ textAlign: "center", ...Fonts.blackColor20Bold }}>
           Welcome to Digital Payment
         </Text>
-        <Text style={{textAlign: 'center', ...Fonts.grayColor16SemiBold}}>
+        <Text style={{ textAlign: "center", ...Fonts.grayColor16SemiBold }}>
           Let’s create your account
         </Text>
       </View>
@@ -325,13 +376,14 @@ const LoginScreen = ({navigation}) => {
 
   function dontAccountInfo() {
     return (
-      <Text style={{textAlign: 'center'}}>
-        <Text style={{...Fonts.blackColor18SemiBold}}>
+      <Text style={{ textAlign: "center" }}>
+        <Text style={{ ...Fonts.blackColor18SemiBold }}>
           Don’t have an account?{` `}
         </Text>
         <Text
-          onPress={() => updateState({viewLoginInfo: false})}
-          style={{...Fonts.primaryColor18Bold}}>
+          onPress={() => updateState({ viewLoginInfo: false })}
+          style={{ ...Fonts.primaryColor18Bold }}
+        >
           Register Now
         </Text>
       </Text>
@@ -342,9 +394,12 @@ const LoginScreen = ({navigation}) => {
     return (
       <TouchableOpacity
         activeOpacity={0.6}
-        onPress={() => navigation.push('Verification', { mobileNumber: loginMobileNo })}
-        style={styles.loginRegisterButtonStyle}>
-        <Text style={{...Fonts.whiteColor22Bold}}>Login</Text>
+        onPress={() =>
+          navigation.push("Verification", { mobileNumber: loginMobileNo })
+        }
+        style={styles.loginRegisterButtonStyle}
+      >
+        <Text style={{ ...Fonts.whiteColor22Bold }}>Login</Text>
       </TouchableOpacity>
     );
   }
@@ -354,9 +409,10 @@ const LoginScreen = ({navigation}) => {
       <Text
         style={{
           marginTop: Sizes.fixPadding - 5.0,
-          textAlign: 'right',
+          textAlign: "right",
           ...Fonts.primaryColor14SemiBold,
-        }}>
+        }}
+      >
         Forget password?
       </Text>
     );
@@ -365,26 +421,30 @@ const LoginScreen = ({navigation}) => {
   function loginPasswordTextField() {
     return (
       <View
-        style={{justifyContent: 'space-between', ...styles.textFieldWrapStyle}}>
-        <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+        style={{
+          justifyContent: "space-between",
+          ...styles.textFieldWrapStyle,
+        }}
+      >
+        <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
           <MaterialIcons name="lock" color={Colors.grayColor} size={15} />
           <TextInput
             secureTextEntry={secureLoginPassword}
             value={loginPassword}
-            onChangeText={text => updateState({loginPassword: text})}
+            onChangeText={(text) => updateState({ loginPassword: text })}
             placeholder="Password"
             placeholderTextColor={Colors.grayColor}
             style={styles.textFieldStyle}
             selectionColor={Colors.primaryColor}
-            textContentType='oneTimeCode'
+            textContentType="oneTimeCode"
           />
         </View>
         <MaterialCommunityIcons
-          name={secureLoginPassword ? 'eye' : 'eye-off'}
+          name={secureLoginPassword ? "eye" : "eye-off"}
           color={Colors.grayColor}
           size={15}
           onPress={() =>
-            updateState({secureLoginPassword: !secureLoginPassword})
+            updateState({ secureLoginPassword: !secureLoginPassword })
           }
         />
       </View>
@@ -398,7 +458,8 @@ const LoginScreen = ({navigation}) => {
           marginBottom: Sizes.fixPadding,
           marginTop: Sizes.fixPadding * 2.5,
           ...styles.textFieldWrapStyle,
-        }}>
+        }}
+      >
         <MaterialIcons
           name="phone-android"
           color={Colors.grayColor}
@@ -406,7 +467,7 @@ const LoginScreen = ({navigation}) => {
         />
         <TextInput
           value={loginMobileNo}
-          onChangeText={text => updateState({loginMobileNo: text})}
+          onChangeText={(text) => updateState({ loginMobileNo: text })}
           placeholder="Mobile Number"
           placeholderTextColor={Colors.grayColor}
           style={styles.textFieldStyle}
@@ -419,9 +480,9 @@ const LoginScreen = ({navigation}) => {
 
   function welcomeBackText() {
     return (
-      <View style={{marginTop: Sizes.fixPadding + 5.0, alignItems: 'center'}}>
-        <Text style={{...Fonts.blackColor20Bold}}>Welcome Back</Text>
-        <Text style={{textAlign: 'center', ...Fonts.grayColor16SemiBold}}>
+      <View style={{ marginTop: Sizes.fixPadding + 5.0, alignItems: "center" }}>
+        <Text style={{ ...Fonts.blackColor20Bold }}>Welcome Back</Text>
+        <Text style={{ textAlign: "center", ...Fonts.grayColor16SemiBold }}>
           We’re happy to see you again
         </Text>
       </View>
@@ -432,21 +493,23 @@ const LoginScreen = ({navigation}) => {
     return (
       <View style={styles.loginRegisterOptionsWrapStyle}>
         <Text
-          onPress={() => updateState({viewLoginInfo: true})}
+          onPress={() => updateState({ viewLoginInfo: true })}
           style={
             viewLoginInfo
-              ? {...Fonts.primaryColor25ExtraBold}
-              : {...Fonts.grayColor25ExtraBold}
-          }>
+              ? { ...Fonts.primaryColor25ExtraBold }
+              : { ...Fonts.grayColor25ExtraBold }
+          }
+        >
           Login
         </Text>
         <Text
-          onPress={() => updateState({viewLoginInfo: false})}
+          onPress={() => updateState({ viewLoginInfo: false })}
           style={
             !viewLoginInfo
-              ? {...Fonts.primaryColor25ExtraBold}
-              : {...Fonts.grayColor25ExtraBold}
-          }>
+              ? { ...Fonts.primaryColor25ExtraBold }
+              : { ...Fonts.grayColor25ExtraBold }
+          }
+        >
           Register
         </Text>
       </View>
@@ -457,11 +520,11 @@ const LoginScreen = ({navigation}) => {
     return (
       <View style={styles.appLogoWrapStyle}>
         <Image
-          source={require('../../assets/images/logo1.png')}
+          source={require("../../assets/images/logo1.png")}
           style={{
             width: 130.0,
             height: 55.0,
-            resizeMode: 'contain',
+            resizeMode: "contain",
             marginBottom: Sizes.fixPadding * 2.0,
           }}
         />
@@ -472,15 +535,15 @@ const LoginScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
   bgImageStyle: {
-    width: '100%',
+    width: "100%",
     height: screenHeight / 2.5,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     flex: 1,
     backgroundColor: Colors.secondaryColor,
   },
   textFieldWrapStyle: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     backgroundColor: Colors.whiteColor,
     borderColor: Colors.lightWhiteColor,
     borderWidth: 1.0,
@@ -498,30 +561,30 @@ const styles = StyleSheet.create({
   loginRegisterButtonStyle: {
     backgroundColor: Colors.primaryColor,
     borderRadius: Sizes.fixPadding - 5.0,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: Sizes.fixPadding + 5.0,
     borderWidth: 1.5,
-    borderColor: 'rgba(86, 0, 65, 0.2)',
+    borderColor: "rgba(86, 0, 65, 0.2)",
     marginVertical: Sizes.fixPadding + 5.0,
     ...commonStyles.buttonShadow,
   },
   loginRegisterOptionsWrapStyle: {
     marginHorizontal: Sizes.fixPadding,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   appLogoWrapStyle: {
     backgroundColor: Colors.whiteColor,
-    position: 'absolute',
+    position: "absolute",
     bottom: 0.0,
     left: 0.0,
     right: 0.0,
     borderTopLeftRadius: Sizes.fixPadding * 5.0,
     borderTopRightRadius: Sizes.fixPadding * 5.0,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
+    alignItems: "center",
+    justifyContent: "flex-end",
     height: 200.0,
   },
   loginRegisterInfoOuterWrapStyle: {
@@ -529,7 +592,7 @@ const styles = StyleSheet.create({
     borderRadius: Sizes.fixPadding * 5.0,
     height: screenHeight - 250,
     width: screenWidth - 40.0,
-    alignSelf: 'center',
+    alignSelf: "center",
     marginBottom: 100.0,
     zIndex: 1,
     ...commonStyles.boxShadow,
@@ -539,7 +602,7 @@ const styles = StyleSheet.create({
     marginBottom: Sizes.fixPadding,
     marginHorizontal: Sizes.fixPadding * 2.0,
     flex: 1,
-  }, 
+  },
 });
 
 export default LoginScreen;
