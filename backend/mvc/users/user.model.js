@@ -7,7 +7,8 @@ function model(sequelize) {
         fullname: { type: DataTypes.STRING, allowNull: false },
         email: { type: DataTypes.STRING, allowNull: false },
         mobile: { type: DataTypes.STRING, allowNull: false },
-        hash: { type: DataTypes.STRING, allowNull: false }
+        hash: { type: DataTypes.STRING, allowNull: false },
+        role: { type: DataTypes.ENUM('admin', 'user'), defaultValue: 'user' }
     };
 
     const options = {
@@ -17,7 +18,7 @@ function model(sequelize) {
         },
         scopes: {
             // include hash with this scope
-            withHash: { attributes: {}, }
+            withHash: { attributes: {} }
         }
     };
 

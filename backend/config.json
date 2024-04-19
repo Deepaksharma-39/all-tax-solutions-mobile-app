@@ -4,7 +4,7 @@
     "port": 3306,
     "user": "root",
     "password": "deepak@123",
-    "database": "mydb"
+    "database": "eecom"
   },
   "secret": "THIS IS USED TO SIGN AND VERIFY JWT TOKENS, REPLACE IT WITH YOUR OWN SECRET, IT CAN BE ANY STRING"
 }

@@ -24,11 +24,12 @@ async function authenticate({ mobile, password }) {
 }
 
 async function getAll() {
-    return await db.User.findAll();
+    return await db.User.findAll({ attributes: { exclude: ['hash'] } }); // Exclude hash by default
 }
 
 async function getById(id) {
-    return await getUser(id);
+    const user = await getUser(id);
+    return omitHash(user.get());
 }
 
 async function create(params) {
@@ -50,8 +51,8 @@ async function update(id, params) {
     const user = await getUser(id);
 
     // validate
-    const usernameChanged = params.mobile && user.mobile !== params.mobile;
-    if (usernameChanged && await db.User.findOne({ where: { mobile: params.mobile } })) {
+    const mobileChanged = params.mobile && user.mobile !== params.mobile;
+    if (mobileChanged && await db.User.findOne({ where: { mobile: params.mobile } })) {
         throw 'mobile "' + params.mobile + '" is already taken';
     }
 

@@ -1,28 +1,19 @@
 const express = require('express');
 const router = express.Router();
-const Joi = require('joi');
-const validateRequest = require('_middleware/validate-request');
 const authorize = require('_middleware/authorize')
 const userService = require('./user.service');
 
 // routes
-router.post('/login', authenticateSchema, authenticate);
-router.post('/register', registerSchema, register);
-router.get('/', authorize(), getAll);
+router.post('/login', authenticate);
+router.post('/register', register);
+router.get('/', authorize(['admin']), getAll);
 router.get('/current', authorize(), getCurrent);
-router.get('/:id', authorize(), getById);
-router.put('/:id', authorize(), updateSchema, update);
-router.delete('/:id', authorize(), _delete);
+router.get('/:id', authorize(['admin']), getById);
+router.put('/:id', authorize(['admin']), update);
+router.delete('/:id', authorize(['admin']), _delete);
 
 module.exports = router;
 
-function authenticateSchema(req, res, next) {
-    const schema = Joi.object({
-        mobile: Joi.string().required(),
-        password: Joi.string().required()
-    });
-    validateRequest(req, next, schema);
-}
 
 function authenticate(req, res, next) {
     userService.authenticate(req.body)
@@ -30,21 +21,16 @@ function authenticate(req, res, next) {
         .catch(next);
 }
 
-function registerSchema(req, res, next) {
-    const schema = Joi.object({
-        fullname: Joi.string().required(),
-        email: Joi.string().required(),
-        mobile: Joi.string().required(),
-        password: Joi.string().min(6).required()
-    });
-    validateRequest(req, next, schema);
-}
 
-function register(req, res, next) {
-    userService.create(req.body)
+
+async function register(req, res, next) {
+    const { fullname, email, mobile, password, role } = req.body;
+
+    userService.create({ fullname, email, mobile, password, role })
         .then(() => res.json({ message: 'Registration successful' }))
         .catch(next);
 }
+
 
 function getAll(req, res, next) {
     userService.getAll()
@@ -62,15 +48,7 @@ function getById(req, res, next) {
         .catch(next);
 }
 
-function updateSchema(req, res, next) {
-    const schema = Joi.object({
-        firstName: Joi.string().empty(''),
-        lastName: Joi.string().empty(''),
-        username: Joi.string().empty(''),
-        password: Joi.string().min(6).empty('')
-    });
-    validateRequest(req, next, schema);
-}
+
 
 function update(req, res, next) {
     userService.update(req.params.id, req.body)
