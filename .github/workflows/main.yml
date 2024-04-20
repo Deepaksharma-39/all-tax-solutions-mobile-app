@@ -25,7 +25,8 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
-        server: allroadtaxsolutions.com
-        username: frontend
+      protocol: ${{ secrets.FTP_PROTOCOL }}
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USER }}
         password: ${{ secrets.FTP_PASS }}
         local-dir: ./frontend/build/
