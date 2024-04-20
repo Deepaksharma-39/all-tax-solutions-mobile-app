@@ -8,7 +8,7 @@ function model(sequelize) {
         email: { type: DataTypes.STRING, allowNull: false },
         mobile: { type: DataTypes.STRING, allowNull: false },
         hash: { type: DataTypes.STRING, allowNull: false },
-        role: { type: DataTypes.ENUM('admin', 'user'), defaultValue: 'user' }
+        role: { type: DataTypes.ENUM('admin', 'user', 'premium-user'), defaultValue: 'user' }
     };
 
     const options = {
