@@ -12,6 +12,8 @@ app.use(cors());
 
 // api routes
 app.use("/users", require("./mvc/users/user.controller"));
+app.use("/venue", require("./mvc/venue/venue.controller"));
+app.use("/enquiry", require("./mvc/enquiry/enquiry.controller"));
 
 app.get("/pdf/:filename", (req, res) => {
   const { filename } = req.params;
