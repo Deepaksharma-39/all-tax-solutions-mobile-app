@@ -4,7 +4,6 @@ import "aos/dist/aos.css";
 import { Fragment, useEffect } from "react";
 import ScrollToTop from "react-scroll-to-top";
 
-import "./custum-css/style.css";
 import SignIn from "./pages/SignIn";
 import Home from "./pages/Dashboard/pages/Home";
 import Border from "./pages/Dashboard/pages/Border";
