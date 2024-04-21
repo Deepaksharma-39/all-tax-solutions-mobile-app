@@ -64,7 +64,7 @@ const BottomTabBarScreen = ({navigation}) => {
           }}
         />
         <Tab.Screen
-          name="Mall"
+          name="Buy"
           component={MallScreen}
           options={{
             tabBarIcon: ({focused}) =>
@@ -75,7 +75,7 @@ const BottomTabBarScreen = ({navigation}) => {
           }}
         />
         <Tab.Screen
-          name="History"
+          name="Sell"
           component={HistoryScreen}
           options={{
             tabBarIcon: ({focused}) =>

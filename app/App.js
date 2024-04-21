@@ -48,7 +48,6 @@ import termsAndConditionsScreen from "./screens/termsAndConditions/termsAndCondi
 import onboardingScreen from "./screens/onboarding/onboardingScreen";
 import splashScreen from "./screens/splashScreen";
 import loginResisterScreen from "./screens/auth/loginRegisterScreen";
-import verificationScreen from "./screens/auth/verificationScreen";
 import * as ExpoSplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 
@@ -89,7 +88,6 @@ const App = () => {
           <Stack.Screen name="Splash" component={splashScreen} options={{ ...TransitionPresets.DefaultTransition }} />
           <Stack.Screen name="Onboarding" component={onboardingScreen} />
           <Stack.Screen name="LoginRegister" component={loginResisterScreen} options={{ ...TransitionPresets.DefaultTransition }} />
-          <Stack.Screen name="Verification" component={verificationScreen} />
           <Stack.Screen name="BottomTabBar" component={bottomTabBarScreen} options={{ ...TransitionPresets.DefaultTransition }} />
           <Stack.Screen name="Search" component={searchScreen} />
           <Stack.Screen name="QrScan" component={qrScanScreen} />

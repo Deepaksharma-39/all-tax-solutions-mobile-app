@@ -19,7 +19,7 @@ const rechargeOptionsList = [
   },
   {
     id: '2',
-    optionName: 'FASTag Recharge',
+    optionName: 'FASTag Recharge', 
     optionIcon: require('../../assets/images/icons/fastag.png'),
   },
   {

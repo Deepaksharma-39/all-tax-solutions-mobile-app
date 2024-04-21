@@ -11,10 +11,31 @@ import {
 import { Colors, Fonts, Sizes, commonStyles } from '../../constants/styles';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MyStatusBar from '../../components/myStatusBar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect } from 'react';
+
+
+const getData = async () => {
+  try {
+    const jsonValue = await AsyncStorage.getItem('userData');
+    return jsonValue != null ? JSON.parse(jsonValue) : null;
+  } catch (e) {
+    // error reading value
+  }
+};
+
 
 const ProfileScreen = ({ navigation }) => {
   const [showLogoutDialog, setshowLogoutDialog] = useState(false);
 
+  // const [userData,setUserData]=useState({});
+  
+  // useEffect(()=>{
+  //   const userJson=AsyncStorage.getItem('userData');
+  //   setUserData(JSON.parse(userJson));
+  //   console.log("userData",userData);
+  
+  // },[])
   return (
     <View style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
       <MyStatusBar />
@@ -179,6 +200,8 @@ const ProfileScreen = ({ navigation }) => {
     return <View style={styles.dividerStyle} />;
   }
 
+
+
   function userDetail() {
     return (
       <View style={styles.userDetailWrapStyle}>
@@ -188,7 +211,7 @@ const ProfileScreen = ({ navigation }) => {
             style={{ width: 65.0, height: 65.0, borderRadius: 32.5 }}
           />
           <View style={{ marginLeft: Sizes.fixPadding }}>
-            <Text style={{ ...Fonts.blackColor18SemiBold }}>Samantha John</Text>
+            <Text style={{ ...Fonts.blackColor18SemiBold }}>{"userData.fullname"}</Text>
             <Text style={{ ...Fonts.grayColor16Regular }}>+91 1236547890</Text>
           </View>
         </View>

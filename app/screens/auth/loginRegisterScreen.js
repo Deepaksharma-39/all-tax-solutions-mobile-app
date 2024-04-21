@@ -24,9 +24,13 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useFocusEffect } from "@react-navigation/native";
 import MyStatusBar from "../../components/myStatusBar";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Modal } from "react-native-paper";
+import { Circle } from "react-native-animated-spinkit";
 
 const LoginScreen = ({ navigation }) => {
   const domain = process.env.REACT_APP_API_DOMAIN;
+  const [isLoading, setisLoading] = useState(false);
 
   const backAction = () => {
     if (Platform.OS == "ios") {
@@ -60,14 +64,14 @@ const LoginScreen = ({ navigation }) => {
   const [backClickCount, setBackClickCount] = useState(0);
 
   const [state, setState] = useState({
-    loginMobileNo: null,
-    loginPassword: null,
+    loginMobileNo:null,
+    loginPassword:null,
     viewLoginInfo: true,
-    fullName: null,
-    email: null,
-    registerMobileNo: null,
-    registerPassword: null,
-    confirmPassword: null,
+    fullName:null,
+    email:null,
+    registerMobileNo:null,
+    registerPassword:null,
+    confirmPassword:null,
     secureConfiremPassword: true,
     secureRegisterPassword: true,
     secureLoginPassword: true,
@@ -89,32 +93,52 @@ const LoginScreen = ({ navigation }) => {
     secureLoginPassword,
   } = state;
 
-const handleRegister=async()=>{
-        
+  const handleRegister = async () => {
+    const baseUrl = "https://api.allroadtaxsolutions.com";
     try {
-      const response = await axios.post(`http://192.168.56.1:4000/users/register`, {
-        fullName:state.fullName,
-        mobile:state.loginMobileNo,
-        email:state.email,
-        password:state.loginPassword
+      const response = await axios.post(`${baseUrl}/users/register`, {
+        fullname: state.fullName,
+        mobile: state.registerMobileNo,
+        email: state.email,
+        password: state.registerPassword
       });
 
-      // Handle successful authentication
-      console.log("Authentication successful:", response.data);
-      window.localStorage.setItem("userData", JSON.stringify(response.data));
-      window.localStorage.setItem("Token", response.data.token);
-      navigate("BottomTabBar");
+      if (response.status === 200) {
+        alert(`Registration Successful`);
+        updateState({ viewLoginInfo: true })
+      } else {
+        alert(`Failed Please try again!`);
+        throw new Error("An error has occurred");
+      }
     } catch (error) {
-      // Handle authentication failure
-      console.error(
-        "Authentication error:",
-        error
-      );
-      setError(
-        "Authentication failed. Please check your username and password."
-      )
-  };
-}
+      console.log(error.response.data)
+      alert("Try again");
+    }
+
+  }
+
+
+  const handleLogin = async () => {
+    const baseUrl = "https://api.allroadtaxsolutions.com";
+    try {
+      const response = await axios.post(`${baseUrl}/users/login`, {
+        mobile: state.loginMobileNo,
+        password: state.loginPassword
+      });
+
+      if (response.status === 200) {
+        console.log(response.data);
+        await AsyncStorage.setItem('userData', JSON.stringify(response.data));
+        navigation.push('BottomTabBar')
+      } else {
+        throw new Error("An error has occurred");
+      }
+    } catch (error) {
+      console.log(error.response.data)
+      alert("Try Again");
+    }
+
+  }
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
@@ -138,9 +162,27 @@ const handleRegister=async()=>{
           </ScrollView>
         </View>
       </ImageBackground>
+        {loading()}
       {exitInfo()}
     </View>
   );
+
+  function loading() {
+    return (
+      <Modal visible={isLoading} style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+        <View style={styles.dialogStyle}>
+          <Circle size={50} color={Colors.primaryColor} />
+          <Text
+            style={{
+              ...Fonts.grayColor16SemiBold,
+              marginTop: Sizes.fixPadding * 2.5,
+            }}>
+            Please Wait..
+          </Text>
+        </View>
+      </Modal>
+    );
+  }
 
   function exitInfo() {
     return backClickCount == 1 ? (
@@ -192,7 +234,7 @@ const handleRegister=async()=>{
     return (
       <Text style={{ textAlign: "center" }}>
         <Text style={{ ...Fonts.blackColor18SemiBold }}>
-          Already have an account? {}
+          Already have an account? { }
         </Text>
         <Text
           onPress={() => updateState({ viewLoginInfo: true })}
@@ -208,8 +250,14 @@ const handleRegister=async()=>{
     return (
       <TouchableOpacity
         activeOpacity={0.6}
-        onPress={() =>{navigation.push('BottomTabBar')}}
-        // onPress={() =>{handleRegister()}}
+        // onPress={() => { setisLoading(true); handleRegister(); setisLoading(false) }}
+        onPress={()=>{
+          setisLoading(true);
+          handleRegister();
+          setTimeout(() => {
+            setisLoading(false);
+          }, 2000);
+        }}
         style={styles.loginRegisterButtonStyle}
       >
         <Text style={{ ...Fonts.whiteColor22Bold }}>Register</Text>
@@ -302,6 +350,7 @@ const handleRegister=async()=>{
           style={styles.textFieldStyle}
           selectionColor={Colors.primaryColor}
           keyboardType="numeric"
+          required
         />
       </View>
     );
@@ -394,9 +443,13 @@ const handleRegister=async()=>{
     return (
       <TouchableOpacity
         activeOpacity={0.6}
-        onPress={() =>
-          navigation.push("Verification", { mobileNumber: loginMobileNo })
-        }
+        onPress={()=>{
+          setisLoading(true);
+          handleLogin();
+          setTimeout(() => {
+            setisLoading(false);
+          }, 2000);
+        }}
         style={styles.loginRegisterButtonStyle}
       >
         <Text style={{ ...Fonts.whiteColor22Bold }}>Login</Text>
@@ -431,7 +484,7 @@ const handleRegister=async()=>{
           <TextInput
             secureTextEntry={secureLoginPassword}
             value={loginPassword}
-            onChangeText={(text) => updateState({ loginPassword: text })}
+            onChangeText={(text) => { updateState({ loginPassword: text }) }}
             placeholder="Password"
             placeholderTextColor={Colors.grayColor}
             style={styles.textFieldStyle}

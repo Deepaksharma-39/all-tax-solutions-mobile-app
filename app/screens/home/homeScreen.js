@@ -1,8 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   FlatList,
-  ScrollView,
   Text,
   Image,
   StyleSheet,
@@ -13,11 +12,7 @@ import {
   Fonts,
   Sizes,
   commonStyles,
-  screenWidth,
-  screenHeight,
 } from '../../constants/styles';
-import {Menu, MenuItem} from 'react-native-material-menu';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MyStatusBar from '../../components/myStatusBar';
 
 const quickRechargesAndBillPayOptionsList = [
@@ -29,22 +24,23 @@ const quickRechargesAndBillPayOptionsList = [
   },
   {
     id: '2',
-    optionName: 'Electricity',
-    optionIcon: require('../../assets/images/icons/electricity.png'),
-    category: 'utilitiesBillsAndFincialServices',
+    optionName: 'FASTag Recharge',
+    optionIcon: require('../../assets/images/icons/fastag.png'),
+    category: 'recharge'
   },
   {
     id: '3',
-    optionName: 'Flight Ticket',
-    optionIcon: require('../../assets/images/icons/flight_ticket.png'),
-    category: 'bookTicket',
+    optionName: 'GST',
+    optionIcon: require('../../assets/images/icons/tax.png'),
+    category: 'utilitiesBillsAndFincialServices',
   },
   {
     id: '4',
-    optionName: 'Moive Ticket',
-    optionIcon: require('../../assets/images/icons/moive_ticket.png'),
-    category: 'bookTicket',
+    optionName: 'Insurance',
+    optionIcon: require('../../assets/images/icons/insurance.png'),
+    category: 'utilitiesBillsAndFincialServices',
   },
+ 
   {
     id: '5',
     optionName: 'Bus Ticket',
@@ -77,8 +73,8 @@ const quickRechargesAndBillPayOptionsList = [
   },
   {
     id: '10',
-    optionName: 'Piped Gas',
-    optionIcon: require('../../assets/images/icons/piped_gas.png'),
+    optionName: 'Electricity',
+    optionIcon: require('../../assets/images/icons/electricity.png'),
     category: 'utilitiesBillsAndFincialServices',
   },
   {
@@ -89,77 +85,34 @@ const quickRechargesAndBillPayOptionsList = [
   },
   {
     id: '12',
-    optionName: 'More',
-    optionIcon: require('../../assets/images/icons/more.png'),
+    optionName: 'Loan Payment',
+    optionIcon: require('../../assets/images/icons/loan_payment.png'),
+    category: 'utilitiesBillsAndFincialServices',
   },
 ];
 
-const recentTransactionsList = [
-  {
-    id: '1',
-    userImage: require('../../assets/images/users/user4.png'),
-    userName: 'Tina Shah',
-    amount: 35.0,
-    date: '17/10',
-    isSend: true,
-  },
-  {
-    id: '2',
-    userImage: require('../../assets/images/users/user2.png'),
-    userName: 'Tanay John',
-    amount: 150.0,
-    date: '17/10',
-  },
-  {
-    id: '3',
-    userImage: require('../../assets/images/users/user3.png'),
-    userName: 'Isha Khatri',
-    amount: 150.0,
-    date: '17/10',
-  },
-];
 
-const citysList = [
-  'Surat',
-  'Ahmedabad',
-  'Vadodara',
-  'Rajkot',
-  'Gandhinagar',
-  'Anand',
-  'Navasari',
-  'Surendranagar',
-  'Bharuch',
-  'Vapi',
-];
 
-const HomeScreen = ({navigation}) => {
-  const [state, setState] = useState({
-    showCityOptions: false,
-    selectedCity: citysList[0],
-  });
 
-  const updateState = data => setState(state => ({...state, ...data}));
-
-  const {showCityOptions, selectedCity} = state;
+const HomeScreen = ({ navigation }) => {
 
   return (
-    <View style={{flex: 1, backgroundColor: Colors.whiteColor}}>
+    <View style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
       <MyStatusBar />
-      <View style={{flex: 1}}>
-        {/* {header()} */}
+      <View style={{ flex: 1 }}>
         <FlatList
           ListHeaderComponent={
             <>
-              {/* {searchInfo()} */}
-              {/* {features()} */}
               {banner()}
               {quickReachargesAndBillPaysInfo()}
               {offersRewardsAndInviteNowOptions()}
-              {recentTransactionsInfo()}
+              {payBorderTaxButton()}
+              {DownloadRecieptButton()}
+
             </>
           }
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{paddingBottom: Sizes.fixPadding}}
+          contentContainerStyle={{ paddingBottom: Sizes.fixPadding }}
         />
       </View>
     </View>
@@ -169,15 +122,15 @@ const HomeScreen = ({navigation}) => {
     return (
       <View style={styles.bannerWrapStyle}>
         <View>
-          <Text style={{...Fonts.whiteColor16Bold}}>
+          <Text style={{ ...Fonts.whiteColor16Bold }}>
             Up to 20% cashback on bill payments every...
           </Text>
-          <Text style={{...Fonts.whiteColor14Regular}}>
+          <Text style={{ ...Fonts.whiteColor14Regular }}>
             Lorem Ipsum is simply dummy text of the printing
           </Text>
         </View>
         <View style={styles.knowMoreButtonStyle}>
-          <Text style={{...Fonts.whiteColor18Bold}}>Know More</Text>
+          <Text style={{ ...Fonts.whiteColor18Bold }}>Know More</Text>
         </View>
         <Image
           source={require('../../assets/images/banner_image1.png')}
@@ -209,7 +162,31 @@ const HomeScreen = ({navigation}) => {
     );
   }
 
-  function offersRewardOrInviteButton({icon, title, navigateTo}) {
+  function payBorderTaxButton() {
+    return (
+      <TouchableOpacity
+        activeOpacity={0.6}
+        // onPress={() => navigation.push(navigateTo)}
+        style={styles.payBorderTaxButton}>
+
+        <Text style={{ ...Fonts.whiteColor22Bold }}>Border Tax Payment</Text>
+      </TouchableOpacity>
+    );
+  }
+
+
+  function DownloadRecieptButton() {
+    return (
+      <TouchableOpacity
+        activeOpacity={0.6}
+        // onPress={() => navigation.push(navigateTo)}
+        style={styles.DownloadRecieptButton}>
+
+        <Text style={{ ...Fonts.whiteColor22Bold }}>Download Receipt</Text>
+      </TouchableOpacity>
+    );
+  }
+  function offersRewardOrInviteButton({ icon, title, navigateTo }) {
     return (
       <TouchableOpacity
         activeOpacity={0.6}
@@ -217,7 +194,7 @@ const HomeScreen = ({navigation}) => {
         style={styles.offersRewardOrInviteButtonStyle}>
         <Image
           source={icon}
-          style={{width: 25.0, height: 25.0}}
+          style={{ width: 25.0, height: 25.0 }}
           resizeMode="contain"
         />
         <Text
@@ -232,85 +209,26 @@ const HomeScreen = ({navigation}) => {
     );
   }
 
-  function recentTransactionsInfo() {
-    return (
-      <View
-        style={{
-          marginTop: Sizes.fixPadding * 2.0,
-          marginHorizontal: Sizes.fixPadding * 2.0,
-        }}>
-        <View
-          style={{
-            marginBottom: Sizes.fixPadding,
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}>
-          <Text style={{...Fonts.blackColor18Bold}}>Recent Transactions</Text>
-          <Text style={{...Fonts.blackColor14ExtraBold}}>View All</Text>
-        </View>
-        {recentTransactionsList.map(item => (
-          <View key={`${item.id}`}>
-            <View
-              style={{
-                marginBottom: Sizes.fixPadding,
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}>
-              <View
-                style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-                <Image
-                  source={item.userImage}
-                  style={{width: 50.0, height: 50.0, borderRadius: 25.0}}
-                />
-                <Text
-                  numberOfLines={1}
-                  style={{
-                    marginLeft: Sizes.fixPadding + 5.0,
-                    ...Fonts.blackColor16SemiBold,
-                  }}>
-                  {item.userName}
-                </Text>
-              </View>
-              <View style={{flex: 0.6, alignItems: 'flex-end'}}>
-                <Text
-                  style={{
-                    ...(item.isSend
-                      ? {...Fonts.redColor14Bold}
-                      : {...Fonts.greenColor14Bold}),
-                  }}>
-                  {`$`}
-                  {item.amount.toFixed(2)}
-                </Text>
-                <Text style={{...Fonts.grayColor12Regular}}>{item.date}</Text>
-              </View>
-            </View>
-          </View>
-        ))}
-      </View>
-    );
-  }
 
   function quickReachargesAndBillPaysInfo() {
-    const renderItem = ({item}) => (
+    const renderItem = ({ item }) => (
       <TouchableOpacity
         activeOpacity={0.6}
         onPress={() => {
           item.category == 'recharge'
             ? navigation.push('MobileRecharge')
             : item.category == 'utilitiesBillsAndFincialServices'
-            ? navigation.push('ElectricityBillPayment')
-            : item.category == 'bookTicket'
-            ? navigation.push('TicketBooking', {
-                index:
-                  item.optionName == 'Flight Ticket'
-                    ? 0
-                    : item.optionName == 'Bus Ticket'
-                    ? 1
-                    : 2,
-              })
-            : navigation.push('QuickRechargesAndBillPays');
+              ? navigation.push('ElectricityBillPayment')
+              : item.category == 'bookTicket'
+                ? navigation.push('TicketBooking', {
+                  index:
+                    item.optionName == 'Flight Ticket'
+                      ? 0
+                      : item.optionName == 'Bus Ticket'
+                        ? 1
+                        : 2,
+                })
+                : navigation.push('QuickRechargesAndBillPays');
         }}
         style={{
           alignItems: 'center',
@@ -319,7 +237,7 @@ const HomeScreen = ({navigation}) => {
         }}>
         <Image
           source={item.optionIcon}
-          style={{width: 35.0, height: 35.0}}
+          style={{ width: 35.0, height: 35.0 }}
           resizeMode="contain"
         />
         <Text
@@ -333,7 +251,7 @@ const HomeScreen = ({navigation}) => {
       </TouchableOpacity>
     );
     return (
-      <View style={{marginHorizontal: Sizes.fixPadding * 2.0}}>
+      <View style={{ marginHorizontal: Sizes.fixPadding * 2.0 }}>
         <Text
           style={{
             marginBottom: Sizes.fixPadding + 10.0,
@@ -353,114 +271,8 @@ const HomeScreen = ({navigation}) => {
     );
   }
 
-  
 
-  function searchInfo() {
-    return (
-      <TouchableOpacity
-        activeOpacity={0.6}
-        onPress={() => {
-          navigation.push('Search');
-        }}
-        style={styles.searchInfoWrapStyle}>
-        <MaterialIcons name="search" color={Colors.grayColor} size={15} />
-        <Text
-          style={{marginLeft: Sizes.fixPadding, ...Fonts.grayColor14SemiBold}}>
-          Search here...
-        </Text>
-      </TouchableOpacity>
-    );
-  }
 
-  function header() {
-    return (
-      <View style={styles.headerWrapStyle}>
-        <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-          <Image
-            source={require('../../assets/images/users/user1.png')}
-            style={{width: 50.0, height: 50.0, borderRadius: 25.0}}
-          />
-          <View style={{marginLeft: Sizes.fixPadding}}>
-            <Text style={{...Fonts.blackColor14SemiBold}}>Your Location</Text>
-            <Menu
-              visible={showCityOptions}
-              style={{
-                paddingTop: Sizes.fixPadding,
-                maxHeight: screenHeight - 100.0,
-              }}
-              anchor={
-                <TouchableOpacity
-                  activeOpacity={0.6}
-                  onPress={() => updateState({showCityOptions: true})}
-                  style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <Text style={{...Fonts.blackColor16Bold}}>
-                    {selectedCity}
-                  </Text>
-                  <MaterialIcons
-                    name="arrow-drop-down"
-                    size={24}
-                    color={Colors.blackColor}
-                    style={{marginLeft: Sizes.fixPadding}}
-                  />
-                </TouchableOpacity>
-              }
-              onRequestClose={() => updateState({showCityOptions: false})}>
-              <ScrollView showsVerticalScrollIndicator={false}>
-                {citysList.map((item, index) => (
-                  <MenuItem
-                    key={index}
-                    textStyle={{
-                      marginRight: Sizes.fixPadding,
-                      marginTop: Sizes.fixPadding - 20.0,
-                      ...Fonts.blackColor16Bold,
-                    }}
-                    onPress={() =>
-                      updateState({selectedCity: item, showCityOptions: false})
-                    }>
-                    {item}
-                  </MenuItem>
-                ))}
-              </ScrollView>
-            </Menu>
-          </View>
-        </View>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <TouchableOpacity
-            activeOpacity={0.6}
-            onPress={() => navigation.push('QrScan')}>
-            <Image
-              source={require('../../assets/images/icons/scan.png')}
-              style={{width: 16.0, height: 16.0}}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            activeOpacity={0.6}
-            onPress={() => navigation.push('Notifications')}>
-            <Image
-              source={require('../../assets/images/icons/notification.png')}
-              style={{
-                width: 16.0,
-                height: 16.0,
-                marginHorizontal: Sizes.fixPadding + 5.0,
-              }}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.6}
-            onPress={() => navigation.push('Help')}>
-            <Image
-              source={require('../../assets/images/icons/help_line.png')}
-              style={{width: 16.0, height: 16.0}}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  }
 };
 
 const styles = StyleSheet.create({
@@ -499,7 +311,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   offersRewardOrInviteButtonStyle: {
-    backgroundColor: Colors.primaryColor,
+    backgroundColor: Colors.secondaryColor,
     borderRadius: Sizes.fixPadding - 5.0,
     flex: 1,
     alignItems: 'center',
@@ -536,6 +348,29 @@ const styles = StyleSheet.create({
     right: 0.0,
     width: 200.0,
     height: 150.0,
+  },
+  payBorderTaxButton: {
+    backgroundColor: Colors.primaryColor,
+    borderRadius: Sizes.fixPadding - 5.0,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: Sizes.fixPadding + 5.0,
+    borderWidth: 1.5,
+    borderColor: "rgba(86, 0, 65, 0.2)",
+    marginVertical: Sizes.fixPadding + 14.0,
+    marginHorizontal: Sizes.fixPadding,
+    ...commonStyles.buttonShadow,
+  },
+  DownloadRecieptButton: {
+    backgroundColor: Colors.primaryColor,
+    borderRadius: Sizes.fixPadding - 5.0,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: Sizes.fixPadding + 5.0,
+    borderWidth: 1.5,
+    borderColor: "rgba(86, 0, 65, 0.2)",
+    marginHorizontal: Sizes.fixPadding,
+    ...commonStyles.buttonShadow,
   },
 });
 
