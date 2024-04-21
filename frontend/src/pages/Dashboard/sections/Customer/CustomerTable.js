@@ -123,7 +123,7 @@ import { EnquiryTable } from "./EnquiryTable";
           rowsPerPageOptions={[5, 10, 25]}
         />
         <Dialog open={isEditOpen} onClose={handleEditClose} maxWidth="xl">
-          <DialogTitle>Edit Border Price</DialogTitle>
+          <DialogTitle>User History</DialogTitle>
         <EnquiryTable  id={customerId}/>
         </Dialog>
       </Card>

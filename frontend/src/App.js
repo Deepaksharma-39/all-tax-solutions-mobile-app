@@ -34,7 +34,7 @@ function App() {
           <Route exact path="/admin" element={<ProtectedRoute />}>
             <Route exact path="/admin/dashboard" element={<Home />} />
             <Route exact path="/admin/border" element={<Border />} />
-            <Route exact path="/admin/customer" element={<Customer />} />
+            <Route exact path="/admin/users" element={<Customer />} />
 
           </Route>
 

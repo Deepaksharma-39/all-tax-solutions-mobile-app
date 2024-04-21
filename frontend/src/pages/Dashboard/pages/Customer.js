@@ -167,7 +167,7 @@ function Customer() {
                     spacing={4}
                   >
                     <Stack spacing={1}>
-                      <Typography variant="h4">Customer Details</Typography>
+                      <Typography variant="h4">User Details</Typography>
                     </Stack>
                   
                   </Stack>
