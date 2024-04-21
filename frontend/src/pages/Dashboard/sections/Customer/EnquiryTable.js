@@ -41,7 +41,7 @@ import { History } from "@mui/icons-material";
         setLoading(true);
         const fetchData = async (id) => {
           try {
-            const response = await axios.get(`${domain}/user/${id}`, {
+            const response = await axios.get(`${domain}/enquiry/user/${id}`, {
                 headers: {
                   Authorization: `Bearer ${token}`,
                   "Content-Type": "application/json",

@@ -28,9 +28,9 @@ async function getById(req, res, next) {
 }
 
 async function create(req, res, next) {
-    const { state, vehicleNumber, seatingCapacity, borderEntry, taxMode, fromDate, toDate } = req.body;
+    const { state, vehicleNumber, seatingCapacity, borderEntry, taxMode, fromDate, toDate,userId } = req.body;
 
-    enquiryService.create({ state, vehicleNumber, seatingCapacity, borderEntry, taxMode, fromDate, toDate })
+    enquiryService.create({ state, vehicleNumber, seatingCapacity, borderEntry, taxMode, fromDate, toDate, userId })
         .then(() => res.json({ message: 'Enquiry created successfully' }))
         .catch(next);
 }

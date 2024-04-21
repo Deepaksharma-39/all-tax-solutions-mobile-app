@@ -19,10 +19,7 @@ async function getById(id) {
 }
 
 async function create(params) {
-    // Validate if necessary
-    // For example, check if the user exists before associating the enquiry
-
-    // Create the enquiry
+    
     await db.Enquiry.create(params);
 }
 

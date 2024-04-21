@@ -110,7 +110,7 @@ export const BorderTable = (props) => {
 
   const handleDelete = async (officeId) => {
     try {
-      const response = await axios.delete(`${domain}/branch/${officeId}`, {
+      const response = await axios.delete(`${domain}/venue/${officeId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
