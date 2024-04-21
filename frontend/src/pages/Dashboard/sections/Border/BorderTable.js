@@ -157,7 +157,6 @@ export const BorderTable = (props) => {
                 <TableCell>Per Day Charge (4+1)</TableCell>
                 <TableCell>Per Day Charge (6+1)</TableCell>
                 <TableCell>Per Day Charge (7+1)</TableCell>
-                <TableCell>Border Region</TableCell>
                 <Stack
                   alignItems="center"
                   justifyContent="center"
@@ -182,7 +181,6 @@ export const BorderTable = (props) => {
                     <TableCell>{customer.perDayCharge41}</TableCell>
                     <TableCell>{customer.perDayCharge61}</TableCell>
                     <TableCell>{customer.perDayCharge71}</TableCell>
-                    <TableCell>{customer.area}</TableCell>
                     <Stack
                       alignItems="center"
                       justifyContent="center"

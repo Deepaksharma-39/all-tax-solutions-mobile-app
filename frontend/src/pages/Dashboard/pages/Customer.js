@@ -156,7 +156,6 @@ function Customer() {
               component="main"
               sx={{
                 flexGrow: 1,
-                py: 8,
               }}
             >
               <Container maxWidth="xl">
@@ -170,7 +169,8 @@ function Customer() {
                       <Typography variant="h4">User Details</Typography>
                     </Stack>
                   
-                  </Stack>
+                  </Stack> 
+                  <Stack> 
                   {loading ? (
                     <CircularProgress />
                   ) : (
@@ -185,6 +185,7 @@ function Customer() {
                       key={key}
                     />
                   )}
+                  </Stack> 
                 </Stack>
               </Container>
             </Box>

@@ -52,9 +52,9 @@ const updateUserData = async (data) => {
 
 export const AccountProfileDetails = () => {
   const [values, setValues] = useState({
-    fullname: userData?.fullname || "",
-    mobile: userData?.mobile || "",
-    email: userData?.email || "",
+    fullname:  "",
+    mobile: "",
+    email:  "",
     password: "",
   });
 
@@ -107,6 +107,9 @@ export const AccountProfileDetails = () => {
 
   useEffect(() => {
     // Check password match and update state
+    setValues({fullname:userData?.fullname,
+    mobile:userData?.mobile,
+  email:userData?.email})
     setPasswordMatch(values.password === values.confirmPassword);
   }, [values.password, values.confirmPassword]);
 

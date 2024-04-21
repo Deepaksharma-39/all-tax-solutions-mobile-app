@@ -105,7 +105,7 @@ export default function SignIn() {
               required
               fullWidth
               id="mobile"
-              label="mobile"
+              label="Mobile"
               name="mobile"
               autoComplete="mobile"
               autoFocus

@@ -28,19 +28,12 @@ export const SideNav = (props) => {
       }}
     >
       <Box sx={{ p: 3 }}>
+        
         <Box
-          component={ReactRouterLink}
-          to="/admin/dashboard"
+         component={ReactRouterLink}
+         to="/admin/dashboard"
           sx={{
-            display: "inline-flex",
-            height: 32,
-            width: 32,
-          }}
-        >
-          Dashboard
-        </Box>
-        <Box
-          sx={{
+            textDecoration:"none",
             alignItems: "center",
             backgroundColor: "rgba(255, 255, 255, 0.04)",
             borderRadius: 1,
@@ -52,7 +45,7 @@ export const SideNav = (props) => {
           }}
         >
           <div>
-            <Typography color="inherit" variant="subtitle1">
+            <Typography color="neutral.400" variant="subtitle1">
               All Tax 
             </Typography>
             <Typography color="neutral.400" variant="body2">

@@ -251,7 +251,7 @@ function Office() {
             <DialogContent>
               <Grid container spacing={2}>
                 <Grid item xl={12} md={6}>
-                  <FormControl fullWidth>
+                  <FormControl fullWidth required>
                     <InputLabel id="demo-simple-select-label">
                       Select State
                     </InputLabel>
@@ -300,14 +300,7 @@ function Office() {
                     fullWidth
                   />
                 </Grid>
-                <Grid item xl={12} md={6}>
-                  <TextField
-                    label="Area"
-                    name="area"
-                    onChange={handleInputChange}
-                    fullWidth
-                  />
-                </Grid>
+              
                 
               </Grid>
             </DialogContent>
