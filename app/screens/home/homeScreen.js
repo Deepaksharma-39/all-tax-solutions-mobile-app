@@ -207,7 +207,10 @@ const HomeScreen = ({ navigation,route }) => {
     return (
       <TouchableOpacity
         activeOpacity={0.6}
-        onPress={() => setshowLogoutDialog(true)}
+        onPress={() => {
+          setshowLogoutDialog(true)
+        
+        }}
         style={styles.DownloadRecieptButton}>
 
         <Text style={{ ...Fonts.whiteColor22Bold }}>Download Receipt</Text>

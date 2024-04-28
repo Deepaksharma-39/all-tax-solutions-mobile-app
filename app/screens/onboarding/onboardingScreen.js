@@ -24,26 +24,26 @@ const onboardingScreenList = [
   {
     id: '1',
     onboardingImage: require('../../assets/images/manage.png'),
-    title: 'Secure Your Money',
-    description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text..`,
+    title: 'Tax Payment Solutions',
+    description: `meet all road transport tax requirements with just a few clicks. Simplify your obligations and ensure compliance with ease.`,
+  },
+  {
+    id: '2',
+    onboardingImage: require('../../assets/images/services.png'),
+    title: 'Various Payment Services',
+    description: `Offering diverse payment services for your convenience. Simplify transactions and meet your financial needs effortlessly.`,
+  },
+  {
+    id: '3',
+    onboardingImage: require('../../assets/images/transfer.png'),
+    title: 'Payment with Rapid Receipts',
+    description: `Effortlessly pay your taxes and receive your receipts within 24 hours. Streamline your tax obligations and enjoy convenient, prompt service.`,
   },
   {
     id: '2',
     onboardingImage: require('../../assets/images/transfer.png'),
-    title: 'Quick Money Transfer',
-    description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text.`,
-  },
-  {
-    id: '3',
-    onboardingImage: require('../../assets/images/services.png'),
-    title: 'Various Services',
-    description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text.`,
-  },
-  {
-    id: '4',
-    onboardingImage: require('../../assets/images/transfer.png'),
-    title: 'Quick Money Transfer',
-    description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text.`,
+    title: 'Instant Recharge Solutions',
+    description: `Discover convenient options for phone and FASTag recharge, along with a range of other services.`,
   },
 ];
 

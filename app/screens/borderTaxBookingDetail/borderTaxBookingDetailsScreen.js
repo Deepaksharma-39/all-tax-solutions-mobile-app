@@ -5,20 +5,28 @@ import {
     TouchableOpacity,
     StyleSheet,
     Text,
+    Modal,
 } from 'react-native';
 import { Colors, Fonts, Sizes, commonStyles } from '../../constants/styles';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MyStatusBar from '../../components/myStatusBar';
 import axios from 'axios';
+import { useState } from 'react';
+import { Circle } from 'react-native-animated-spinkit';
 
 const BorderTaxBookingDetailsScreen = ({ navigation, route }) => {
     const { enquiry } = route.params;
+    const [isLoading, setisLoading] = useState(false);
+const [amount,setAmount]=useState(null);
+
 
 
     const postQuery = async () => {
         const baseUrl = "https://api.allroadtaxsolutions.com";
+
         try {
             // state, vehicleNumber, seatingCapacity, borderEntry, taxMode, fromDate, toDate,userId
+
             const response = await axios.post(`${baseUrl}/enquiry`, {
                 state: enquiry.state,
                 vehicleNumber: enquiry?.vehicleNumber,
@@ -33,6 +41,13 @@ const BorderTaxBookingDetailsScreen = ({ navigation, route }) => {
             if (response.status === 200) {
                 console.log(response.data)
                 // navigation.push('BottomTabBar',{ userData: response.data })
+
+                setisLoading(true);
+                setTimeout(() => {
+                  setisLoading(false);
+                }, 2000);
+                alert('Query Submitted');
+                navigation.pop();
             } else {
                 throw new Error("An error has occurred");
             }
@@ -91,8 +106,26 @@ const BorderTaxBookingDetailsScreen = ({ navigation, route }) => {
                     {continueButton()}
                 </ScrollView>
             </View>
+                {loading()}
         </View>
     );
+
+    function loading() {
+        return (
+          <Modal visible={isLoading} style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+            <View style={styles.dialogStyle}>
+              <Circle size={50} color={Colors.primaryColor} />
+              <Text
+                style={{
+                  ...Fonts.grayColor16SemiBold,
+                  marginTop: Sizes.fixPadding * 2.5,
+                }}>
+                Please Wait..
+              </Text>
+            </View>
+          </Modal>
+        );
+      }
 
     function continueButton() {
         return (
@@ -100,7 +133,9 @@ const BorderTaxBookingDetailsScreen = ({ navigation, route }) => {
                 activeOpacity={0.6}
                 onPress={async () => {
                     await postQuery();
-                    await sendmail();
+                    // await sendmail();
+
+                 
 
                 }}
                 // onPress={() => navigation.push('TravellersDetail')}
@@ -200,6 +235,14 @@ const styles = StyleSheet.create({
         marginVertical: Sizes.fixPadding,
         ...commonStyles.buttonShadow,
     },
+    dialogStyle: {
+        borderRadius: Sizes.fixPadding - 5.0,
+        backgroundColor: Colors.whiteColor,
+        alignItems: 'center',
+        padding: Sizes.fixPadding * 2.0,
+        width: '80%',
+        alignSelf: 'center'
+      },
 });
 
 export default BorderTaxBookingDetailsScreen;
