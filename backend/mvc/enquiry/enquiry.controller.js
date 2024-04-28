@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const authorize = require('../../_middleware/authorize');
 const enquiryService = require('./enquiry.service');
+const upload = require('../../_middleware/upload');
 
 // Routes
 router.get('/', authorize(['admin']), getAll);
@@ -28,15 +29,18 @@ async function getById(req, res, next) {
 }
 
 async function create(req, res, next) {
-    const { state, vehicleNumber, seatingCapacity, borderEntry, taxMode, fromDate, toDate,userId } = req.body;
+    const { state, vehicleNumber, seatingCapacity, borderEntry, taxMode, fromDate, toDate,userId,amount } = req.body;
 
-    enquiryService.create({ state, vehicleNumber, seatingCapacity, borderEntry, taxMode, fromDate, toDate, userId })
+    enquiryService.create({ state, vehicleNumber, seatingCapacity, borderEntry, taxMode, fromDate, toDate, userId,amount })
         .then(() => res.json({ message: 'Enquiry created successfully' }))
         .catch(next);
 }
 
 async function update(req, res, next) {
-    enquiryService.update(req.params.id, req.body)
+    const params = req.body;
+    const file = req.file;
+    console.log(params,file)
+    enquiryService.update(req.body,req.body, req.file)
         .then(enquiry => res.json(enquiry))
         .catch(next);
 }

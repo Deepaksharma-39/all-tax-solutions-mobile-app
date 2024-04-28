@@ -31,6 +31,7 @@ import { Circle } from "react-native-animated-spinkit";
 const LoginScreen = ({ navigation }) => {
   const domain = process.env.REACT_APP_API_DOMAIN;
   const [isLoading, setisLoading] = useState(false);
+  const [userData,setuserData]=useState({});
 
   const backAction = () => {
     if (Platform.OS == "ios") {
@@ -127,9 +128,9 @@ const LoginScreen = ({ navigation }) => {
       });
 
       if (response.status === 200) {
-        console.log(response.data);
+        setuserData(response.data)
         await AsyncStorage.setItem('userData', JSON.stringify(response.data));
-        navigation.push('BottomTabBar')
+        navigation.push('BottomTabBar',{ userData: response.data })
       } else {
         throw new Error("An error has occurred");
       }
@@ -655,6 +656,14 @@ const styles = StyleSheet.create({
     marginBottom: Sizes.fixPadding,
     marginHorizontal: Sizes.fixPadding * 2.0,
     flex: 1,
+  },
+  dialogStyle: {
+    borderRadius: Sizes.fixPadding - 5.0,
+    backgroundColor: Colors.whiteColor,
+    alignItems: 'center',
+    padding: Sizes.fixPadding * 2.0,
+    width: '80%',
+    alignSelf: 'center'
   },
 });
 

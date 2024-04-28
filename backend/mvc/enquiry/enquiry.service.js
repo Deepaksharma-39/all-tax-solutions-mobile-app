@@ -23,15 +23,19 @@ async function create(params) {
     await db.Enquiry.create(params);
 }
 
-async function update(id, params) {
+async function update(id,params, file) {
+    const pdfFileName = file ? file.originalname : null; // Check if file exists
     const enquiry = await getEnquiry(id);
+    // Update the file path if a new file is uploaded
+    if (pdfFileName) {
+        enquiry.receiptPath = pdfFileName;
+    }
 
-    // Update the enquiry with new params
-    Object.assign(enquiry, params);
     await enquiry.save();
 
     return enquiry;
 }
+
 
 async function _delete(id) {
     const enquiry = await getEnquiry(id);

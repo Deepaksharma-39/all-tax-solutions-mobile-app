@@ -14,19 +14,25 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MyStatusBar from '../../components/myStatusBar';
 
-const EditProfileScreen = ({ navigation }) => {
+const EditProfileScreen = ({ navigation,route }) => {
+  const {userData}=route.params;
   const [state, setState] = useState({
-    userName: 'Samantha John',
-    email: 'johnsamantha@gmail.com',
-    mobileNumber: '+91 1236547890',
-    password: '123456789',
+    fullname: userData.fullname,
+    email: userData.email,
+    mobileNumber: userData.mobile,
+    password: userData?.password,
     showBottomSheet: false,
   });
 
+
   const updateState = data => setState(state => ({ ...state, ...data }));
 
-  const { userName, email, mobileNumber, password, showBottomSheet } = state;
+  const { fullname, email, mobileNumber, password, showBottomSheet } = state;
 
+
+  const updateUserData=()=>{
+    console.log(state)
+  }
   return (
     <View style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
       <MyStatusBar />
@@ -42,7 +48,7 @@ const EditProfileScreen = ({ navigation }) => {
           {editPasswordInfo()}
           {updateProfileButton()}
         </ScrollView>
-        {changeProfilePicOptionsSheet()}
+        {/* {changeProfilePicOptionsSheet()} */}
       </View>
     </View>
   );
@@ -139,6 +145,7 @@ const EditProfileScreen = ({ navigation }) => {
     return (
       <TouchableOpacity
         activeOpacity={0.6}
+        // onPress={() => updateUserData()}
         onPress={() => navigation.pop()}
         style={styles.updateProfileButtonStyle}>
         <Text style={{ ...Fonts.whiteColor22Bold }}>Update Profile</Text>
@@ -210,10 +217,10 @@ const EditProfileScreen = ({ navigation }) => {
           marginBottom: Sizes.fixPadding,
           marginHorizontal: Sizes.fixPadding * 2.0,
         }}>
-        <Text style={{ ...Fonts.grayColor16SemiBold }}>User Name</Text>
+        <Text style={{ ...Fonts.grayColor16SemiBold }}>Full Name</Text>
         <TextInput
-          value={userName}
-          onChangeText={text => updateState({ userName: text })}
+          value={fullname}
+          onChangeText={text => updateState({ fullname: text })}
           style={styles.textFieldWrapStyle}
           selectionColor={Colors.primaryColor}
         />
@@ -232,12 +239,12 @@ const EditProfileScreen = ({ navigation }) => {
           alignItems: 'center',
         }}>
         <Image
-          source={require('../../assets/images/users/user1.png')}
+          source={require('../../assets/images/users/user.png')}
           style={{ width: 85.0, height: 85.0, borderRadius: 42.5 }}
         />
-        <View style={styles.addIconWrapStyle}>
+        {/* <View style={styles.addIconWrapStyle}>
           <MaterialIcons name="add" color={Colors.whiteColor} size={18} />
-        </View>
+        </View> */}
       </TouchableOpacity>
     );
   }

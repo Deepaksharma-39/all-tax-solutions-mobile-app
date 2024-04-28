@@ -15,27 +15,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
 
 
-const getData = async () => {
-  try {
-    const jsonValue = await AsyncStorage.getItem('userData');
-    return jsonValue != null ? JSON.parse(jsonValue) : null;
-  } catch (e) {
-    // error reading value
-  }
-};
 
-
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = ({ navigation,route  }) => {
   const [showLogoutDialog, setshowLogoutDialog] = useState(false);
 
-  // const [userData,setUserData]=useState({});
+  const {userData} = route.params;
+
   
-  // useEffect(()=>{
-  //   const userJson=AsyncStorage.getItem('userData');
-  //   setUserData(JSON.parse(userJson));
-  //   console.log("userData",userData);
   
-  // },[])
   return (
     <View style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
       <MyStatusBar />
@@ -46,7 +33,7 @@ const ProfileScreen = ({ navigation }) => {
           contentContainerStyle={{ paddingBottom: Sizes.fixPadding * 2.0 }}>
           {userDetail()}
           {divider()}
-          {profileOptions({
+          {/* {profileOptions({
             optionIcon: require('../../assets/images/icons/scan.png'),
             option: 'My QR Code',
             navigateTo: 'QrCode',
@@ -75,7 +62,7 @@ const ProfileScreen = ({ navigation }) => {
             optionIcon: require('../../assets/images/icons/list.png'),
             option: 'Terms and Conditions',
             navigateTo: 'TermsAndConditions',
-          })}
+          })} */}
           {logoutOption()}
         </ScrollView>
         {logoutDialog()}
@@ -207,17 +194,17 @@ const ProfileScreen = ({ navigation }) => {
       <View style={styles.userDetailWrapStyle}>
         <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
           <Image
-            source={require('../../assets/images/users/user1.png')}
+            source={require('../../assets/images/users/user.png')}
             style={{ width: 65.0, height: 65.0, borderRadius: 32.5 }}
           />
           <View style={{ marginLeft: Sizes.fixPadding }}>
-            <Text style={{ ...Fonts.blackColor18SemiBold }}>{"userData.fullname"}</Text>
-            <Text style={{ ...Fonts.grayColor16Regular }}>+91 1236547890</Text>
+            <Text style={{ ...Fonts.blackColor18SemiBold }}>{userData.fullname}</Text>
+            <Text style={{ ...Fonts.grayColor16Regular }}>+91 {userData.mobile}</Text>
           </View>
         </View>
         <TouchableOpacity
           activeOpacity={0.6}
-          onPress={() => navigation.push('EditProfile', { id: 'photo' })}>
+          onPress={() => navigation.push('EditProfile', { id: 'photo',userData:userData })}>
           <Image
             source={require('../../assets/images/icons/edit.png')}
             style={{ width: 20.0, height: 20.0, resizeMode: 'contain' }}

@@ -87,19 +87,20 @@ const shoppingDealsList = [
   },
 ];
 
-const MallScreen = ({navigation}) => {
+const MallScreen = ({ navigation }) => {
   return (
-    <View style={{flex: 1, backgroundColor: Colors.whiteColor}}>
+    <View style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
       <MyStatusBar />
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         {header()}
         <FlatList
           ListHeaderComponent={
             <>
-              {searchInfo()}
+              {/* {searchInfo()}
               {shoppingCategoriesInfo()}
               {banner()}
-              {todaysDealsInfo()}
+              {todaysDealsInfo()} */}
+              {comingSoon()}
             </>
           }
           showsVerticalScrollIndicator={false}
@@ -108,8 +109,22 @@ const MallScreen = ({navigation}) => {
     </View>
   );
 
+
+  function comingSoon  ()  {
+    return (
+      <View
+        style={{ width: "100%", }}
+      >
+        <Image
+          source={require('../../assets/images/comingsoon.jpg')}
+          style={{width:"100%",height:700}}
+        />
+      </View>
+    )
+  }
+
   function todaysDealsInfo() {
-    const renderItem = ({item}) => (
+    const renderItem = ({ item }) => (
       <TouchableOpacity
         activeOpacity={0.6}
         onPress={() => navigation.push('ShopByCategories')}
@@ -125,10 +140,10 @@ const MallScreen = ({navigation}) => {
           }}>
           <Text
             numberOfLines={1}
-            style={{flex: 1, ...Fonts.blackColor16SemiBold}}>
+            style={{ flex: 1, ...Fonts.blackColor16SemiBold }}>
             {item.shoppingDeals}
           </Text>
-          <Text style={{...Fonts.secondaryColor14Bold}}>{item.offer}</Text>
+          <Text style={{ ...Fonts.secondaryColor14Bold }}>{item.offer}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -142,7 +157,7 @@ const MallScreen = ({navigation}) => {
           }}>
           Today’s Deals
         </Text>
-        <View style={{marginHorizontal: Sizes.fixPadding}}>
+        <View style={{ marginHorizontal: Sizes.fixPadding }}>
           <FlatList
             data={shoppingDealsList}
             keyExtractor={item => `${item.id}`}
@@ -164,20 +179,20 @@ const MallScreen = ({navigation}) => {
           style={styles.bannerImageStyle}
         />
         <View>
-          <Text style={{...Fonts.whiteColor16Bold}}>
+          <Text style={{ ...Fonts.whiteColor16Bold }}>
             All New Summer Collection
           </Text>
-          <Text style={{...Fonts.whiteColor14SemiBold}}>Get 25% Off</Text>
+          <Text style={{ ...Fonts.whiteColor14SemiBold }}>Get 25% Off</Text>
         </View>
         <View style={styles.shopNowButtonStyle}>
-          <Text style={{...Fonts.whiteColor18Bold}}>Shop Now</Text>
+          <Text style={{ ...Fonts.whiteColor18Bold }}>Shop Now</Text>
         </View>
       </View>
     );
   }
 
   function shoppingCategoriesInfo() {
-    const renderItem = ({item}) => (
+    const renderItem = ({ item }) => (
       <TouchableOpacity
         activeOpacity={0.6}
         onPress={() => navigation.push('ShopByCategories')}
@@ -189,10 +204,10 @@ const MallScreen = ({navigation}) => {
         <View style={styles.shoppingCategoryImageWrapStyle}>
           <Image
             source={item.categoryImage}
-            style={{width: 60.0, height: 60.0, borderRadius: 30.0}}
+            style={{ width: 60.0, height: 60.0, borderRadius: 30.0 }}
           />
         </View>
-        <Text style={{...Fonts.blackColor12SemiBold}}>{item.categoryName}</Text>
+        <Text style={{ ...Fonts.blackColor12SemiBold }}>{item.categoryName}</Text>
       </TouchableOpacity>
     );
     return (
@@ -230,7 +245,7 @@ const MallScreen = ({navigation}) => {
         style={styles.searchInfoWrapStyle}>
         <MaterialIcons name="search" color={Colors.grayColor} size={15} />
         <Text
-          style={{marginLeft: Sizes.fixPadding, ...Fonts.grayColor14SemiBold}}>
+          style={{ marginLeft: Sizes.fixPadding, ...Fonts.grayColor14SemiBold }}>
           Search here...
         </Text>
       </TouchableOpacity>
@@ -240,13 +255,14 @@ const MallScreen = ({navigation}) => {
   function header() {
     return (
       <View style={styles.headerWrapStyle}>
-        <Text style={{...Fonts.blackColor20Bold}}>Mall</Text>
+        <Text style={{ ...Fonts.blackColor20Bold }}>Mall</Text>
         <TouchableOpacity
           activeOpacity={0.6}
-          onPress={() => navigation.push('Cart')}>
+          // onPress={() => navigation.push('Cart')}
+          >
           <Image
             source={require('../../assets/images/icons/shopping_basket.png')}
-            style={{width: 17.0, height: 17.0, resizeMode: 'contain'}}
+            style={{ width: 17.0, height: 17.0, resizeMode: 'contain' }}
           />
         </TouchableOpacity>
       </View>
@@ -270,7 +286,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.whiteColor,
     borderColor: Colors.lightWhiteColor,
     borderWidth: 1.0,
-    borderRadius: Sizes.fixPadding - 5.0,   
+    borderRadius: Sizes.fixPadding - 5.0,
     paddingVertical: Sizes.fixPadding + 5.0,
     paddingHorizontal: Sizes.fixPadding,
     margin: Sizes.fixPadding * 2.0,
@@ -317,8 +333,8 @@ const styles = StyleSheet.create({
     flex: 1,
     maxWidth: screenWidth / 2.0 - 30.0,
     ...commonStyles.boxShadow,
-    borderColor:'#ececec',
-    borderWidth:1.0,
+    borderColor: '#ececec',
+    borderWidth: 1.0,
   },
   shoppingDealImageStyle: {
     height: 177.0,

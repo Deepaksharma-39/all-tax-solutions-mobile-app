@@ -111,6 +111,19 @@ const HistoryScreen = ({navigation}) => {
     </View>
   );
 
+  function comingSoon  ()  {
+    return (
+      <View
+        style={{ width: "100%", }}
+      >
+        <Image
+          source={require('../../assets/images/comingsoon.jpg')}
+          style={{width:"100%",height:700}}
+        />
+      </View>
+    )
+  }
+
   function transactions() {
     const renderItem = ({item}) => (
       <View style={styles.transactionWrapStyle}>

@@ -124,7 +124,7 @@ import { EnquiryTable } from "./EnquiryTable";
         />
         <Dialog open={isEditOpen} onClose={handleEditClose} maxWidth="xl">
           <DialogTitle>User History</DialogTitle>
-        <EnquiryTable  id={customerId}/>
+        <EnquiryTable  id={customerId} />
         </Dialog>
       </Card>
     );

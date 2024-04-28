@@ -10,7 +10,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 const Tab = createBottomTabNavigator();
 
-const BottomTabBarScreen = ({navigation}) => {
+const BottomTabBarScreen = ({navigation,route}) => {
   const backAction = () => {
     if (Platform.OS == 'ios') {
       navigation.addListener('beforeRemove', e => {
@@ -22,6 +22,7 @@ const BottomTabBarScreen = ({navigation}) => {
     return true;
   };
 
+const {userData} = route.params;
   useFocusEffect(
     useCallback(() => {
       BackHandler.addEventListener('hardwareBackPress', backAction);
@@ -55,6 +56,7 @@ const BottomTabBarScreen = ({navigation}) => {
         <Tab.Screen
           name="Home"
           component={HomeScreen}
+          initialParams={{userData:userData}}
           options={{
             tabBarIcon: ({focused}) =>
               tabBarSort({
@@ -76,7 +78,7 @@ const BottomTabBarScreen = ({navigation}) => {
         />
         <Tab.Screen
           name="Sell"
-          component={HistoryScreen}
+          component={MallScreen}
           options={{
             tabBarIcon: ({focused}) =>
               tabBarSort({
@@ -88,13 +90,14 @@ const BottomTabBarScreen = ({navigation}) => {
         <Tab.Screen
           name="Profile"
           component={ProfileScreen}
+          initialParams={{userData:userData}}
           options={{
             tabBarIcon: ({focused}) =>
               tabBarSort({
                 focused,
                 icon: require('../assets/images/icons/profile.png'),
               }),
-          }}
+            }}
         />
       </Tab.Navigator>
       {exitInfo()}

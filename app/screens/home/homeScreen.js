@@ -6,6 +6,8 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
+  Modal,
+  TextInput,
 } from 'react-native';
 import {
   Colors,
@@ -14,6 +16,7 @@ import {
   commonStyles,
 } from '../../constants/styles';
 import MyStatusBar from '../../components/myStatusBar';
+import { Circle } from 'react-native-animated-spinkit';
 
 const quickRechargesAndBillPayOptionsList = [
   {
@@ -94,7 +97,12 @@ const quickRechargesAndBillPayOptionsList = [
 
 
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({ navigation,route }) => {
+
+  const {userData}=route.params;
+  const [showLogoutDialog, setshowLogoutDialog] = useState(false);
+  const [vehicleNumber,setVehicleNumber]=useState(null);
+  const [isLoading, setisLoading] = useState(false);
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
@@ -113,10 +121,30 @@ const HomeScreen = ({ navigation }) => {
           }
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: Sizes.fixPadding }}
-        />
+          />
+          {loading()}
       </View>
+      {logoutDialog()}
+
     </View>
   );
+
+  function loading() {
+    return (
+      <Modal visible={isLoading} style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+        <View style={styles.dialogStyle}>
+          <Circle size={50} color={Colors.primaryColor} />
+          <Text
+            style={{
+              ...Fonts.grayColor16SemiBold,
+              marginTop: Sizes.fixPadding * 2.5,
+            }}>
+            Please Wait..
+          </Text>
+        </View>
+      </Modal>
+    );
+  }
 
   function banner() {
     return (
@@ -166,7 +194,7 @@ const HomeScreen = ({ navigation }) => {
     return (
       <TouchableOpacity
         activeOpacity={0.6}
-        // onPress={() => navigation.push(navigateTo)}
+        onPress={() => navigation.push("BorderTax", {userData:userData})}
         style={styles.payBorderTaxButton}>
 
         <Text style={{ ...Fonts.whiteColor22Bold }}>Border Tax Payment</Text>
@@ -179,7 +207,7 @@ const HomeScreen = ({ navigation }) => {
     return (
       <TouchableOpacity
         activeOpacity={0.6}
-        // onPress={() => navigation.push(navigateTo)}
+        onPress={() => setshowLogoutDialog(true)}
         style={styles.DownloadRecieptButton}>
 
         <Text style={{ ...Fonts.whiteColor22Bold }}>Download Receipt</Text>
@@ -190,7 +218,7 @@ const HomeScreen = ({ navigation }) => {
     return (
       <TouchableOpacity
         activeOpacity={0.6}
-        onPress={() => navigation.push(navigateTo)}
+        // onPress={() => navigation.push(navigateTo)}
         style={styles.offersRewardOrInviteButtonStyle}>
         <Image
           source={icon}
@@ -214,22 +242,22 @@ const HomeScreen = ({ navigation }) => {
     const renderItem = ({ item }) => (
       <TouchableOpacity
         activeOpacity={0.6}
-        onPress={() => {
-          item.category == 'recharge'
-            ? navigation.push('MobileRecharge')
-            : item.category == 'utilitiesBillsAndFincialServices'
-              ? navigation.push('ElectricityBillPayment')
-              : item.category == 'bookTicket'
-                ? navigation.push('TicketBooking', {
-                  index:
-                    item.optionName == 'Flight Ticket'
-                      ? 0
-                      : item.optionName == 'Bus Ticket'
-                        ? 1
-                        : 2,
-                })
-                : navigation.push('QuickRechargesAndBillPays');
-        }}
+        // onPress={() => {
+        //   item.category == 'recharge'
+        //     ? navigation.push('MobileRecharge')
+        //     : item.category == 'utilitiesBillsAndFincialServices'
+        //       ? navigation.push('ElectricityBillPayment')
+        //       : item.category == 'bookTicket'
+        //         ? navigation.push('TicketBooking', {
+        //           index:
+        //             item.optionName == 'Flight Ticket'
+        //               ? 0
+        //               : item.optionName == 'Bus Ticket'
+        //                 ? 1
+        //                 : 2,
+        //         })
+        //         : navigation.push('QuickRechargesAndBillPays');
+        // }}
         style={{
           alignItems: 'center',
           flex: 1,
@@ -271,6 +299,73 @@ const HomeScreen = ({ navigation }) => {
     );
   }
 
+  function logoutDialog() {
+
+   
+    return (
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={showLogoutDialog}
+        onRequestClose={() => {
+          setshowLogoutDialog(false)
+        }}
+      >
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={() => {
+            setshowLogoutDialog(false)
+          }}
+          style={{ flex: 1, backgroundColor: "rgba(0,0,0,0.5)" }}
+        >
+          <View style={{ justifyContent: "center", flex: 1 }}>
+            <TouchableOpacity
+              activeOpacity={1}
+              onPress={() => { }}
+              style={styles.dialogContainerStyle}
+            >
+              <View>
+                <Text style={{ textAlign: 'center', ...Fonts.blackColor18Bold }}>Enter Vehicle Number</Text>
+                <TextInput
+                    value={vehicleNumber}
+                    onChangeText={text => setVehicleNumber(text)}
+                    style={styles.textFieldWrapStyle}
+                    selectionColor={Colors.primaryColor}
+                    keyboardType="text"
+                />
+                <View
+                  style={{
+                    marginTop: Sizes.fixPadding * 2.0,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}>
+                  <TouchableOpacity
+                    activeOpacity={0.6}
+                    onPress={() => setshowLogoutDialog(false)}
+                    style={styles.cancelButtonStyle}>
+                    <Text style={{ ...Fonts.primaryColor22Bold }}>Cancel</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    activeOpacity={0.6}
+                    onPress={() => {
+                      setshowLogoutDialog(false);
+                      setisLoading(true);
+                      setTimeout(() => {
+                        setisLoading(false);
+                      }, 2000);
+                    }}
+                    disabled={!vehicleNumber}
+                    style={[styles.logoutButtonStyle, !vehicleNumber&& styles.disabledButtonStyle]}>
+                    <Text style={{ ...Fonts.whiteColor22Bold }}>Search</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </TouchableOpacity>
+      </Modal>
+    );
+  }
 
 
 };
@@ -372,6 +467,67 @@ const styles = StyleSheet.create({
     marginHorizontal: Sizes.fixPadding,
     ...commonStyles.buttonShadow,
   },
+  logoutButtonStyle: {
+    backgroundColor: Colors.primaryColor,
+    borderRadius: Sizes.fixPadding - 5.0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: Sizes.fixPadding,
+    borderWidth: 1.5,
+    borderColor: 'rgba(86, 0, 65, 0.2)',
+    marginLeft: Sizes.fixPadding,
+    flex: 1,
+    ...commonStyles.buttonShadow,
+  },
+  cancelButtonStyle: {
+    backgroundColor: Colors.whiteColor,
+    borderRadius: Sizes.fixPadding - 5.0,
+    paddingVertical: Sizes.fixPadding,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+    marginRight: Sizes.fixPadding,
+    borderColor: Colors.lightWhiteColor,
+    borderWidth: 1.5,
+    ...commonStyles.boxShadow,
+  },
+  profileOptionsWrapStyle: {
+    marginBottom: Sizes.fixPadding * 2.0,
+    marginHorizontal: Sizes.fixPadding * 2.0,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  dialogContainerStyle: {
+    padding: Sizes.fixPadding * 2.0,
+    borderRadius: Sizes.fixPadding - 5.0,
+    backgroundColor: Colors.whiteColor,
+    width: '80%',
+    alignSelf: 'center'
+  },
+  textFieldWrapStyle: {
+    backgroundColor: Colors.whiteColor,
+    borderColor: Colors.lightWhiteColor,
+    borderWidth: 1.0,
+    borderRadius: Sizes.fixPadding - 5.0,
+    ...commonStyles.boxShadow,
+    paddingVertical: Sizes.fixPadding + 5.0,
+    paddingHorizontal: Sizes.fixPadding,
+    height: 50.0,
+    marginTop: Sizes.fixPadding - 5.0,
+    ...Fonts.blackColor18Regular,
+},
+dialogStyle: {
+  borderRadius: Sizes.fixPadding - 5.0,
+  backgroundColor: Colors.whiteColor,
+  alignItems: 'center',
+  padding: Sizes.fixPadding * 2.0,
+  width: '80%',
+  alignSelf: 'center'
+},
+disabledButtonStyle:{
+  backgroundColor: Colors.grayColor,
+}
 });
 
 export default HomeScreen;

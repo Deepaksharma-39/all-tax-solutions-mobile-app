@@ -29,20 +29,20 @@ const onboardingScreenList = [
   },
   {
     id: '2',
-    onboardingImage: require('../../assets/images/manage.png'),
-    title: 'Manage Everything',
-    description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text..`,
-  },
-  {
-    id: '3',
     onboardingImage: require('../../assets/images/transfer.png'),
     title: 'Quick Money Transfer',
     description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text.`,
   },
   {
-    id: '4',
+    id: '3',
     onboardingImage: require('../../assets/images/services.png'),
     title: 'Various Services',
+    description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text.`,
+  },
+  {
+    id: '4',
+    onboardingImage: require('../../assets/images/transfer.png'),
+    title: 'Quick Money Transfer',
     description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text.`,
   },
 ];
@@ -198,9 +198,7 @@ const OnboardingScreen = ({navigation}) => {
                 flatListRef.current.snapToItem(1);
               } else if (activeSlide == 1) {
                 flatListRef.current.snapToItem(2);
-              } else if (activeSlide == 2) {
-                flatListRef.current.snapToItem(3);
-              }
+              } 
             }}
             style={styles.nextAndLoginButtonStyle}>
             <Text style={{...Fonts.whiteColor16Bold}}>Next</Text>

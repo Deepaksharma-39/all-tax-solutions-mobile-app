@@ -10,7 +10,9 @@ function model(sequelize) {
         borderEntry: { type: DataTypes.STRING, allowNull: false },
         taxMode: { type: DataTypes.STRING, allowNull: false },
         fromDate: { type: DataTypes.DATE, allowNull: false },
-        toDate: { type: DataTypes.DATE, allowNull: false }
+        toDate: { type: DataTypes.DATE, allowNull: false },
+        receiptPath: { type: DataTypes.STRING, allowNull: true },
+        amount: { type: DataTypes.STRING, allowNull: true },
     });
 
     // Define the relationship with User model

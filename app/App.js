@@ -50,6 +50,8 @@ import splashScreen from "./screens/splashScreen";
 import loginResisterScreen from "./screens/auth/loginRegisterScreen";
 import * as ExpoSplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
+import BorderTaxScreen from './screens/borderTax/borderTaxPaymentScreen';
+import BorderTaxBookingDetailsScreen from './screens/borderTaxBookingDetail/borderTaxBookingDetailsScreen';
 
 ExpoSplashScreen.preventAutoHideAsync();
 
@@ -131,6 +133,8 @@ const App = () => {
           <Stack.Screen name="Help" component={helpScreen} />
           <Stack.Screen name="HelpDetail" component={helpDetailScreen} />
           <Stack.Screen name="TermsAndConditions" component={termsAndConditionsScreen} />
+          <Stack.Screen name="BorderTax" component={BorderTaxScreen} />
+          <Stack.Screen name="BorderTaxBooking" component={BorderTaxBookingDetailsScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );
