@@ -27,8 +27,7 @@ import { applyPagination } from "../../utils/apply-pagination";
 import { RiDeleteBin2Line } from "react-icons/ri";
 
 
-const token = window.localStorage.getItem("Token");
-const domain = process.env.REACT_APP_API_DOMAIN;
+
 
 
 const useCarriers = (data, page, rowsPerPage) => {
@@ -38,7 +37,8 @@ const useCarriers = (data, page, rowsPerPage) => {
 };
 
 export const EnquiryTable = ({ id }) => {
-
+const token = window.localStorage.getItem("Token");
+const domain = process.env.REACT_APP_API_DOMAIN;
   const [items, setItems] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
