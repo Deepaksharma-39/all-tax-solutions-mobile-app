@@ -23,12 +23,15 @@ async function create(params) {
     await db.Enquiry.create(params);
 }
 
-async function update(id,params, file) {
-    const pdfFileName = file ? file.originalname : null; // Check if file exists
+async function update(id,params) {
+ 
+    const {receiptPath,payment_done} =params
     const enquiry = await getEnquiry(id);
     // Update the file path if a new file is uploaded
-    if (pdfFileName) {
-        enquiry.receiptPath = pdfFileName;
+    
+    if (enquiry) {
+        enquiry.receiptPath = receiptPath;
+        enquiry.payment_done = payment_done;
     }
 
     await enquiry.save();

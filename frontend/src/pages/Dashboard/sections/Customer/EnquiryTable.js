@@ -48,6 +48,7 @@ export const EnquiryTable = ({ id }) => {
   const [file, setFile] = useState(null);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [enquiry, setEnquiry] = useState({});
+  const [key,setkey]=useState(1);
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -58,36 +59,67 @@ export const EnquiryTable = ({ id }) => {
       if (!file) {
         throw new Error("No file selected");
       }
-  
+
       const formData = new FormData();
-      formData.append("file", file); // Append the file itself to the FormData
-      
-      console.log('file', file);
-      console.log('file size:', file.size); // Log the size of the file
-      console.log('formData', formData); // Logging FormData object to verify file is appended
-  
-      const response = await axios.put(
-        `${domain}/enquiry/${enquiry.id}`,
-        file,
+      formData.append("file", file);
+
+      const response = await axios.post(
+        `${domain}/upload/${enquiry.id}`,
+        formData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
+            'Content-Type': 'multipart/form-data' // Ensure proper content type
           },
         }
       );
-  
+
       if (response.status !== 200) {
         throw new Error("Failed to upload PDF file");
       }
+
+      console.log(response.data.srcPath)
+      const filename=response.data.filename;
+
+      try {
+        if (!filename) {
+          throw new Error("No file selected");
+        }
   
+        const response = await axios.put(
+          `${domain}/enquiry/${enquiry.id}`,
+          {receiptPath:filename},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              // 'Content-Type': 'multipart/form-data' // Ensure proper content type
+            },
+          }
+        );
+  
+        if (response.status !== 200) {
+          throw new Error("Failed to upload file path");
+        }
+  
+        console.log("path updated successfully");
+        setIsEditDialogOpen(false);
+        setkey(()=>key+1);
+        // Additional actions upon successful upload, if needed
+      } catch (error) {
+        console.error("Error uploading file path:", error.message);
+        // Additional error handling, if needed
+      }
+
+
       // Handle successful upload
-      console.log("PDF file uploaded successfully");
-      setIsEditDialogOpen(false);
+      console.log("file uploaded successfully");
+      // Additional actions upon successful upload, if needed
     } catch (error) {
-      console.error("Error uploading PDF file:", error.message);
+      console.error("Error uploading file:", error.message);
+      // Additional error handling, if needed
     }
   };
+
   
 
   const handlePageChange = useCallback((event, value) => {
@@ -120,7 +152,8 @@ export const EnquiryTable = ({ id }) => {
           },
         });
 
-        setItems(response.data); // Set the fetched data into state
+        const sortedData = response.data.sort((a, b) => b.id - a.id);
+        setItems(sortedData); // Set the fetched data into state
         setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -130,7 +163,7 @@ export const EnquiryTable = ({ id }) => {
 
     // Call the fetch data function
     fetchData(id);
-  }, []);
+  }, [key]);
 
 
 
@@ -141,6 +174,7 @@ export const EnquiryTable = ({ id }) => {
           <Table>
             <TableHead>
               <TableRow>
+                <TableCell>ID</TableCell>
                 <TableCell>State</TableCell>
                 <TableCell>Vehicle Numer</TableCell>
                 <TableCell>Capacity</TableCell>
@@ -148,6 +182,7 @@ export const EnquiryTable = ({ id }) => {
                 <TableCell>To Date</TableCell>
                 <TableCell>Amount</TableCell>
                 <TableCell>Receipt Status</TableCell>
+                <TableCell>Payment Status</TableCell>
                 <Stack
                   alignItems="center"
                   justifyContent="center"
@@ -169,11 +204,10 @@ export const EnquiryTable = ({ id }) => {
                 {data && data.map((customer) => (
                   <TableRow hover key={customer.id}>
                     <TableCell>
-                      <Stack alignItems="center" direction="row" spacing={2}>
-                        <Typography variant="subtitle2">
+                          {customer.id}
+                    </TableCell>
+                    <TableCell>
                           {customer.state}
-                        </Typography>
-                      </Stack>
                     </TableCell>
                     <TableCell>{customer.vehicleNumber}</TableCell>
                     <TableCell>{customer.seatingCapacity}</TableCell>
@@ -185,6 +219,13 @@ export const EnquiryTable = ({ id }) => {
                         <Typography sx={{ color: 'green' }}>Delivered</Typography>
                       ) : (
                         <Typography sx={{ color: 'red' }}>Not Delivered</Typography>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {customer.payment_done ? (
+                        <Typography sx={{ color: 'green' }}>Done</Typography>
+                      ) : (
+                        <Typography sx={{ color: 'red' }}>Pending</Typography>
                       )}
                     </TableCell>
 
@@ -211,20 +252,7 @@ export const EnquiryTable = ({ id }) => {
                             <Upload />
                           </IconButton>
                         </Tooltip>
-                        <Tooltip title="Delete" arrow>
-                          <IconButton
-                            sx={{
-                              "&:hover": {
-                                backgroundColor: "#ffebee", // Light red background on hover
-                              },
-                            }}
-                            onClick={() => {
-                              // handleDelete(customer.id);
-                            }}
-                          >
-                            <RiDeleteBin2Line />
-                          </IconButton>
-                        </Tooltip>
+                       
                       </TableCell>
                     </Stack>
 
