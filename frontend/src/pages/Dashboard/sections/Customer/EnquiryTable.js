@@ -226,7 +226,7 @@ export const EnquiryTable = ({ id }) => {
                     </TableCell>
                     <TableCell>
                       {customer.receiptPath ? (
-                        <Typography sx={{ color: 'green' }}> <Link to={`${domain}/upload/${customer.receiptPath}`} > Available</Link> </Typography>
+                        <Typography sx={{ color: 'green' }}> <Link to={`${domain}/upload/${customer.receiptPath}`} target="blank" > Available</Link> </Typography>
                       ) : (
                         <Typography sx={{ color: 'red' }}>Unavailable</Typography>
                       )}
