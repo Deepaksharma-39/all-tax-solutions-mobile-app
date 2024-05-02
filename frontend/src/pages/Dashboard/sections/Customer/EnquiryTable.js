@@ -25,6 +25,7 @@ import axios from "axios";
 import { Upload } from "@mui/icons-material";
 import { applyPagination } from "../../utils/apply-pagination";
 import { RiDeleteBin2Line } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 
 
@@ -37,8 +38,7 @@ const useCarriers = (data, page, rowsPerPage) => {
 };
 
 export const EnquiryTable = ({ id }) => {
-const token = window.localStorage.getItem("Token");
-const domain = process.env.REACT_APP_API_DOMAIN;
+
   const [items, setItems] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -48,7 +48,9 @@ const domain = process.env.REACT_APP_API_DOMAIN;
   const [file, setFile] = useState(null);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [enquiry, setEnquiry] = useState({});
-  const [key,setkey]=useState(1);
+  const [key, setkey] = useState(1);
+  const token = window.localStorage.getItem("Token");
+  const domain = process.env.REACT_APP_API_DOMAIN;
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -79,16 +81,16 @@ const domain = process.env.REACT_APP_API_DOMAIN;
       }
 
       console.log(response.data.srcPath)
-      const filename=response.data.filename;
+      const filename = response.data.filename;
 
       try {
         if (!filename) {
           throw new Error("No file selected");
         }
-  
+
         const response = await axios.put(
           `${domain}/enquiry/${enquiry.id}`,
-          {receiptPath:filename},
+          { receiptPath: filename },
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -96,14 +98,14 @@ const domain = process.env.REACT_APP_API_DOMAIN;
             },
           }
         );
-  
+
         if (response.status !== 200) {
           throw new Error("Failed to upload file path");
         }
-  
+
         console.log("path updated successfully");
         setIsEditDialogOpen(false);
-        setkey(()=>key+1);
+        setkey(() => key + 1);
         // Additional actions upon successful upload, if needed
       } catch (error) {
         console.error("Error uploading file path:", error.message);
@@ -120,7 +122,7 @@ const domain = process.env.REACT_APP_API_DOMAIN;
     }
   };
 
-  
+
 
   const handlePageChange = useCallback((event, value) => {
     setPage(value);
@@ -182,6 +184,7 @@ const domain = process.env.REACT_APP_API_DOMAIN;
                 <TableCell>To Date</TableCell>
                 <TableCell>Amount</TableCell>
                 <TableCell>Receipt Status</TableCell>
+                <TableCell>Receipt Link</TableCell>
                 <TableCell>Payment Status</TableCell>
                 <Stack
                   alignItems="center"
@@ -204,10 +207,10 @@ const domain = process.env.REACT_APP_API_DOMAIN;
                 {data && data.map((customer) => (
                   <TableRow hover key={customer.id}>
                     <TableCell>
-                          {customer.id}
+                      {customer.id}
                     </TableCell>
                     <TableCell>
-                          {customer.state}
+                      {customer.state}
                     </TableCell>
                     <TableCell>{customer.vehicleNumber}</TableCell>
                     <TableCell>{customer.seatingCapacity}</TableCell>
@@ -219,6 +222,13 @@ const domain = process.env.REACT_APP_API_DOMAIN;
                         <Typography sx={{ color: 'green' }}>Delivered</Typography>
                       ) : (
                         <Typography sx={{ color: 'red' }}>Not Delivered</Typography>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {customer.receiptPath ? (
+                        <Typography sx={{ color: 'green' }}> <Link to={`${domain}/upload/${customer.receiptPath}`} > Available</Link> </Typography>
+                      ) : (
+                        <Typography sx={{ color: 'red' }}>Unavailable</Typography>
                       )}
                     </TableCell>
                     <TableCell>
@@ -252,7 +262,7 @@ const domain = process.env.REACT_APP_API_DOMAIN;
                             <Upload />
                           </IconButton>
                         </Tooltip>
-                       
+
                       </TableCell>
                     </Stack>
 
