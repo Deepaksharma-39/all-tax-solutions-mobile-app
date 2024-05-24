@@ -19,7 +19,7 @@ app.use(cors());
 
 
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // Allow requests from any origin
+  res.header('Access-Control-Allow-Origin', 'https://allroadtaxsolutions.com'); // Allow requests from any origin
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Credentials', true);
@@ -107,7 +107,7 @@ app.post('/email', async (req, res) => {
       from: '"All Road Tax Solution 🚕" <info@allroadtaxsolutions.com>', // sender address
       to: ["alltaxsolutions44@gmail.com", "deepaksharmaa.39@gmail.com"], // list of receivers
       subject: "New Enquiry", // Subject line
-      text: "text", // plain text body
+      text: text, // plain text body
       html: html, // html body
       // attachments:attachment
     });

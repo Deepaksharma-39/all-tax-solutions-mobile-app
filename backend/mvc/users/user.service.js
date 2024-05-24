@@ -29,7 +29,7 @@ async function getAll() {
 
 async function getById(id) {
     const user = await getUser(id);
-    return omitHash(user.get());
+    return user;
 }
 
 async function create(params) {
@@ -65,7 +65,8 @@ async function update(id, params) {
     Object.assign(user, params);
     await user.save();
 
-    return omitHash(user.get());
+        const token = jwt.sign({ sub: user.id }, config.secret, { expiresIn: '1d' });
+    return { ...omitHash(user.get()), token };
 }
 
 async function _delete(id) {

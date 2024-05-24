@@ -13,7 +13,7 @@ function model(sequelize) {
         toDate: { type: DataTypes.DATE, allowNull: false },
         receiptPath: { type: DataTypes.STRING, allowNull: true },
         amount: { type: DataTypes.STRING, allowNull: true },
-        payment_done: { type: DataTypes.BOOLEAN, allowNull: true },
+        payment_done: { type: DataTypes.STRING, allowNull: true },
     });
 
     // Define the relationship with User model

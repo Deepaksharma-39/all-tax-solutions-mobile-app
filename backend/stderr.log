@@ -1,0 +1,467 @@
+Exception ignored in: <_io.TextIOWrapper name='<stdout>' mode='w' encoding='utf-8'>
+BrokenPipeError: [Errno 32] Broken pipe
+/home/allradbf/api.allroadtaxsolutions.com/app.js:25
+  const transporter = nodemailer.createTransport({
+                      ^
+
+ReferenceError: nodemailer is not defined
+    at /home/allradbf/api.allroadtaxsolutions.com/app.js:25:23
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:280:10)
+    at cors (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:188:7)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:224:17
+
+Node.js v20.12.0
+/home/allradbf/api.allroadtaxsolutions.com/app.js:25
+  const transporter = nodemailer.createTransport({
+                      ^
+
+ReferenceError: nodemailer is not defined
+    at /home/allradbf/api.allroadtaxsolutions.com/app.js:25:23
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:280:10)
+    at cors (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:188:7)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:224:17
+
+Node.js v20.12.0
+/home/allradbf/api.allroadtaxsolutions.com/app.js:25
+  const transporter = nodemailer.createTransport({
+                      ^
+
+ReferenceError: nodemailer is not defined
+    at /home/allradbf/api.allroadtaxsolutions.com/app.js:25:23
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:280:10)
+    at cors (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:188:7)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:224:17
+
+Node.js v20.12.0
+/home/allradbf/api.allroadtaxsolutions.com/app.js:25
+  const transporter = nodemailer.createTransport({
+                      ^
+
+ReferenceError: nodemailer is not defined
+    at /home/allradbf/api.allroadtaxsolutions.com/app.js:25:23
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:280:10)
+    at cors (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:188:7)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:224:17
+
+Node.js v20.12.0
+/home/allradbf/api.allroadtaxsolutions.com/app.js:25
+  const transporter = nodemailer.createTransport({
+                      ^
+
+ReferenceError: nodemailer is not defined
+    at /home/allradbf/api.allroadtaxsolutions.com/app.js:25:23
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:280:10)
+    at cors (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:188:7)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:224:17
+
+Node.js v20.12.0
+/home/allradbf/api.allroadtaxsolutions.com/app.js:25
+  const transporter = nodemailer.createTransport({
+                      ^
+
+ReferenceError: nodemailer is not defined
+    at /home/allradbf/api.allroadtaxsolutions.com/app.js:25:23
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:280:10)
+    at cors (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:188:7)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:224:17
+
+Node.js v20.12.0
+/home/allradbf/api.allroadtaxsolutions.com/app.js:25
+  const transporter = nodemailer.createTransport({
+                      ^
+
+ReferenceError: nodemailer is not defined
+    at /home/allradbf/api.allroadtaxsolutions.com/app.js:25:23
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:280:10)
+    at cors (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:188:7)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:224:17
+
+Node.js v20.12.0
+/home/allradbf/api.allroadtaxsolutions.com/app.js:25
+  const transporter = nodemailer.createTransport({
+                      ^
+
+ReferenceError: nodemailer is not defined
+    at /home/allradbf/api.allroadtaxsolutions.com/app.js:25:23
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:280:10)
+    at cors (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:188:7)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:224:17
+
+Node.js v20.12.0
+/home/allradbf/api.allroadtaxsolutions.com/app.js:25
+  const transporter = nodemailer.createTransport({
+                      ^
+
+ReferenceError: nodemailer is not defined
+    at /home/allradbf/api.allroadtaxsolutions.com/app.js:25:23
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:280:10)
+    at cors (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:188:7)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:224:17
+
+Node.js v20.12.0
+/home/allradbf/api.allroadtaxsolutions.com/app.js:25
+  const transporter = nodemailer.createTransport({
+                      ^
+
+ReferenceError: nodemailer is not defined
+    at /home/allradbf/api.allroadtaxsolutions.com/app.js:25:23
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:280:10)
+    at cors (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:188:7)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:224:17
+
+Node.js v20.12.0
+/home/allradbf/api.allroadtaxsolutions.com/app.js:25
+  const transporter = nodemailer.createTransport({
+                      ^
+
+ReferenceError: nodemailer is not defined
+    at /home/allradbf/api.allroadtaxsolutions.com/app.js:25:23
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:280:10)
+    at cors (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:188:7)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:224:17
+
+Node.js v20.12.0
+/home/allradbf/api.allroadtaxsolutions.com/app.js:25
+  const transporter = nodemailer.createTransport({
+                      ^
+
+ReferenceError: nodemailer is not defined
+    at /home/allradbf/api.allroadtaxsolutions.com/app.js:25:23
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:280:10)
+    at cors (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:188:7)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:224:17
+
+Node.js v20.12.0
+/home/allradbf/api.allroadtaxsolutions.com/app.js:25
+  const transporter = nodemailer.createTransport({
+                      ^
+
+ReferenceError: nodemailer is not defined
+    at /home/allradbf/api.allroadtaxsolutions.com/app.js:25:23
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:280:10)
+    at cors (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:188:7)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:224:17
+
+Node.js v20.12.0
+/home/allradbf/api.allroadtaxsolutions.com/app.js:25
+  const transporter = nodemailer.createTransport({
+                      ^
+
+ReferenceError: nodemailer is not defined
+    at /home/allradbf/api.allroadtaxsolutions.com/app.js:25:23
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:280:10)
+    at cors (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:188:7)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:224:17
+
+Node.js v20.12.0
+/home/allradbf/api.allroadtaxsolutions.com/app.js:25
+  const transporter = nodemailer.createTransport({
+                      ^
+
+ReferenceError: nodemailer is not defined
+    at /home/allradbf/api.allroadtaxsolutions.com/app.js:25:23
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:280:10)
+    at cors (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:188:7)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:224:17
+
+Node.js v20.12.0
+/home/allradbf/api.allroadtaxsolutions.com/app.js:25
+  const transporter = nodemailer.createTransport({
+                      ^
+
+ReferenceError: nodemailer is not defined
+    at /home/allradbf/api.allroadtaxsolutions.com/app.js:25:23
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:280:10)
+    at cors (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:188:7)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:224:17
+
+Node.js v20.12.0
+/home/allradbf/api.allroadtaxsolutions.com/app.js:25
+  const transporter = nodemailer.createTransport({
+                      ^
+
+ReferenceError: nodemailer is not defined
+    at /home/allradbf/api.allroadtaxsolutions.com/app.js:25:23
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:280:10)
+    at cors (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:188:7)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:224:17
+
+Node.js v20.12.0
+/home/allradbf/api.allroadtaxsolutions.com/app.js:25
+  const transporter = nodemailer.createTransport({
+                      ^
+
+ReferenceError: nodemailer is not defined
+    at /home/allradbf/api.allroadtaxsolutions.com/app.js:25:23
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:280:10)
+    at cors (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:188:7)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:224:17
+
+Node.js v20.12.0
+/home/allradbf/api.allroadtaxsolutions.com/app.js:25
+  const transporter = nodemailer.createTransport({
+                      ^
+
+ReferenceError: nodemailer is not defined
+    at /home/allradbf/api.allroadtaxsolutions.com/app.js:25:23
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:280:10)
+    at cors (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:188:7)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:224:17
+
+Node.js v20.12.0
+/home/allradbf/api.allroadtaxsolutions.com/app.js:25
+  const transporter = nodemailer.createTransport({
+                      ^
+
+ReferenceError: nodemailer is not defined
+    at /home/allradbf/api.allroadtaxsolutions.com/app.js:25:23
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:280:10)
+    at cors (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:188:7)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:224:17
+
+Node.js v20.12.0
+/home/allradbf/api.allroadtaxsolutions.com/app.js:25
+  const transporter = nodemailer.createTransport({
+                      ^
+
+ReferenceError: nodemailer is not defined
+    at /home/allradbf/api.allroadtaxsolutions.com/app.js:25:23
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:280:10)
+    at cors (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:188:7)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:224:17
+
+Node.js v20.12.0
+/home/allradbf/api.allroadtaxsolutions.com/app.js:25
+  const transporter = nodemailer.createTransport({
+                      ^
+
+ReferenceError: nodemailer is not defined
+    at /home/allradbf/api.allroadtaxsolutions.com/app.js:25:23
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:280:10)
+    at cors (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:188:7)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:224:17
+
+Node.js v20.12.0
+/home/allradbf/api.allroadtaxsolutions.com/app.js:25
+  const transporter = nodemailer.createTransport({
+                      ^
+
+ReferenceError: nodemailer is not defined
+    at /home/allradbf/api.allroadtaxsolutions.com/app.js:25:23
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:280:10)
+    at cors (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:188:7)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:224:17
+
+Node.js v20.12.0
+/home/allradbf/api.allroadtaxsolutions.com/app.js:25
+  const transporter = nodemailer.createTransport({
+                      ^
+
+ReferenceError: nodemailer is not defined
+    at /home/allradbf/api.allroadtaxsolutions.com/app.js:25:23
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:280:10)
+    at cors (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:188:7)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:224:17
+
+Node.js v20.12.0
+/home/allradbf/api.allroadtaxsolutions.com/app.js:25
+  const transporter = nodemailer.createTransport({
+                      ^
+
+ReferenceError: nodemailer is not defined
+    at /home/allradbf/api.allroadtaxsolutions.com/app.js:25:23
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:280:10)
+    at cors (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:188:7)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:224:17
+
+Node.js v20.12.0
+/home/allradbf/api.allroadtaxsolutions.com/app.js:25
+  const transporter = nodemailer.createTransport({
+                      ^
+
+ReferenceError: nodemailer is not defined
+    at /home/allradbf/api.allroadtaxsolutions.com/app.js:25:23
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:280:10)
+    at cors (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:188:7)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:224:17
+
+Node.js v20.12.0
+/home/allradbf/api.allroadtaxsolutions.com/app.js:25
+  const transporter = nodemailer.createTransport({
+                      ^
+
+ReferenceError: nodemailer is not defined
+    at /home/allradbf/api.allroadtaxsolutions.com/app.js:25:23
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/layer.js:95:5)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/express/lib/router/index.js:280:10)
+    at cors (/home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:188:7)
+    at /home/allradbf/nodevenv/api.allroadtaxsolutions.com/20/lib/node_modules/cors/lib/index.js:224:17
+
+Node.js v20.12.0
+Error reading directory: [Error: ENOENT: no such file or directory, scandir '/home/allradbf/api.allroadtaxsolutions.com/upload/7pngegg.png'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/home/allradbf/api.allroadtaxsolutions.com/upload/7pngegg.png'
+}

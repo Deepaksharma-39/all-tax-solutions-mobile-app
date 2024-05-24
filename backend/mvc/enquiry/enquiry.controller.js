@@ -10,7 +10,7 @@ router.get('/:id', authorize(['admin']), getById);
 router.post('/', create);
 router.put('/:id', authorize(['admin']), update);
 router.delete('/:id', authorize(['admin']), _delete);
-router.get('/user/:userId', authorize(['admin']), getByUserId);
+router.get('/user/:userId', authorize(['admin','user']), getByUserId);
 
 module.exports = router;
 
