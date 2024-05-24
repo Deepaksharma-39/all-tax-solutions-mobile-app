@@ -7,7 +7,6 @@ import {
     TouchableOpacity,
     StyleSheet,
     Text,
-    Modal
 } from 'react-native';
 import { Colors, Fonts, Sizes, commonStyles, screenHeight, screenWidth } from '../../constants/styles';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -15,40 +14,13 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MyStatusBar from '../../components/myStatusBar';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-import { Menu, MenuItem } from 'react-native-material-menu';
-import Carousel, { Pagination } from 'react-native-snap-carousel-v4';
+import { Menu } from 'react-native-material-menu';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { selectAuth } from '../../redux/authSlice';
+import { selectVenue } from '../../redux/venueSlice';
 
-const citysList = [
-    'Surat',
-    'Ahmedabad',
-    'Vadodara',
-    'Rajkot',
-    'Gandhinagar',
-    'Anand',
-    'Navasari',
-    'Surendranagar',
-    'Bharuch',
-    'Vapi',
-    'Surendranagar',
-    'Bharuch',
-    'Vapi',
-    'Surendranagar',
-    'Bharuch',
-    'Vapi',
-    'Surendranagar',
-    'Bharuch',
-    'Vapi',
-    'Surendranagar',
-    'Bharuch',
-    'Vapi',
-    'Surendranagar',
-    'Bharuch',
-    'Vapi',
-    'Surendranagar',
-    'Bharuch',
-    'Vapi',
-];
+
 const priceList = [
     '4 + 1',
     '6 + 1',
@@ -93,10 +65,13 @@ const movieBannerSliderList = [
         movieCategory: '(U/A)',
     },
 ];
-const BorderTaxScreen = ({ navigation, route }) => {
+const BorderTaxScreen = ({ navigation }) => {
 
-    const { userData } = route.params;
+    const { user } = useSelector(selectAuth);
+    const userData=user;
     const dateObj = new Date();
+    const venue = useSelector(selectVenue);
+
     const todayDate = `${dateObj.getUTCDate()} ${monthsList[dateObj.getUTCMonth()]
         }, ${dateObj.getUTCFullYear()}`;
 
@@ -117,7 +92,7 @@ const BorderTaxScreen = ({ navigation, route }) => {
         movieBanners: movieBannerSliderList,
 
     });
-    const flatListRef = useRef();
+
 
     const updateState = data => setState(state => ({ ...state, ...data }));
 
@@ -136,23 +111,7 @@ const BorderTaxScreen = ({ navigation, route }) => {
     });
 
     const updateEnquiry = data => setEnquiry(enquiry => ({ ...enquiry, ...data }));
-    const fetchData = async () => {
-        const baseUrl = "https://api.allroadtaxsolutions.com";
-        try {
-            const response = await axios.get(`${baseUrl}/venue`);
-
-            if (response.status === 200) {
-                setStateData(response.data)
-            } else {
-                throw new Error("An error has occurred");
-            }
-        } catch (error) {
-            console.log(error.response.data)
-            alert("Try Again");
-            navigation.pop()
-        }
-
-    }
+   
 
     useEffect(() => {
         updateEnquiry({
@@ -166,10 +125,13 @@ const BorderTaxScreen = ({ navigation, route }) => {
             userId: userData.id,
             price: seatOption === 1 ? selectedState?.perDayCharge41 : seatOption === 2 ? selectedState?.perDayCharge61 : selectedState.perDayCharge71
         })
-        fetchData()
-    }, [selectedState, vehicleNumber, seatOption, departureDate, returnDate]);
+        if(venue.status==='succeeded'){
+            setStateData(venue.data)
+        }else{
+            setStateData(["Failed to get information"])
+        }
+    }, [selectedState, vehicleNumber, seatOption, departureDate, returnDate,venue.status]);
 
-    // console.log("selectedState",selectedState);
     return (
         <View style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
             <MyStatusBar />
@@ -178,7 +140,7 @@ const BorderTaxScreen = ({ navigation, route }) => {
                 <ScrollView
                     automaticallyAdjustKeyboardInsets={true}
                     showsVerticalScrollIndicator={false}>
-                    {imageSlider()}
+                    {banner()}
                     {editStateName()}
                     {editSeatOption()}
                     {editVehicleNumber()}
@@ -501,62 +463,27 @@ const BorderTaxScreen = ({ navigation, route }) => {
         );
     }
 
-    function imageSlider() {
-        const renderItem = ({ item }) => (
-            <TouchableOpacity
-                activeOpacity={0.6}
-                // onPress={() => navigation.push('MovieCinemaAndSeatSelection', { item })}
-                style={styles.movieSliderWrapStyle}>
-                <Image source={item.moviePoster} style={styles.moviePosterStyle} />
-                <Text
-                    style={{
-                        paddingVertical: Sizes.fixPadding - 5.0,
-                        paddingHorizontal: Sizes.fixPadding,
-                        ...Fonts.blackColor14SemiBold,
-                    }}>
-                    <Text>
-                        GET
-                        <Text style={{ ...Fonts.redColor14ExtraBold }}>
-                            {' '}
-                            {item.cashBackPercentage}%{' '}
-                        </Text>
-                        CASHBACK ON MOIVE TICKETS
-                    </Text>
-                </Text>
-            </TouchableOpacity>
-        );
+    function banner() {
         return (
+          <View style={styles.bannerWrapStyle}>
             <View>
-                <Carousel
-                    ref={flatListRef}
-                    data={movieBanners}
-                    sliderWidth={screenWidth}
-                    autoplay={true}
-                    loop={true}
-                    autoplayInterval={4000}
-                    itemWidth={screenWidth}
-                    renderItem={renderItem}
-                    onSnapToItem={index => {
-                        updateState({ activeSlide: index });
-                    }}
-                />
-                {pagination()}
+              <Text style={{ ...Fonts.whiteColor16Bold }}>
+                Up to 20% cashback on bill payments every...
+              </Text>
+              <Text style={{ ...Fonts.whiteColor14Regular }}>
+                Lorem Ipsum is simply dummy text of the printing
+              </Text>
             </View>
-        );
-    }
-
-    function pagination() {
-        return (
-            <Pagination
-                dotsLength={movieBanners.length}
-                activeDotIndex={activeSlide}
-                containerStyle={styles.sliderPaginationWrapStyle}
-                dotStyle={styles.sliderActiveDotStyle}
-                inactiveDotStyle={styles.sliderInactiveDotStyle}
+            <View style={styles.knowMoreButtonStyle}>
+              <Text style={{ ...Fonts.whiteColor18Bold }}>Know More</Text>
+            </View>
+            <Image
+              source={require('../../assets/images/banner_image1.png')}
+              style={styles.bannerImageStyle}
             />
+          </View>
         );
-    }
-
+      }
 
 };
 
@@ -648,37 +575,21 @@ const styles = StyleSheet.create({
         borderRadius: 4.0,
         backgroundColor: Colors.secondaryColor,
     },
-    moviePosterStyle: {
-        height: 150.0,
-        width: '100%',
-        borderTopLeftRadius: Sizes.fixPadding - 5.0,
-        borderTopRightRadius: Sizes.fixPadding - 5.0,
-    },
-    movieSliderWrapStyle: {
-        backgroundColor: Colors.whiteColor,
-        borderRadius: Sizes.fixPadding - 5.0,
-        margin: Sizes.fixPadding * 2.0,
-        ...commonStyles.boxShadow,
-    },
-    sliderActiveDotStyle: {
-        width: 8,
-        height: 8,
-        borderRadius: 4.0,
-        backgroundColor: Colors.secondaryColor,
-        marginHorizontal: Sizes.fixPadding - 15.0,
-    },
-    sliderInactiveDotStyle: {
-        width: 15,
-        height: 15,
-        borderRadius: 7.5,
-        backgroundColor: Colors.grayColor,
-    },
-    sliderPaginationWrapStyle: {
+    bannerImageStyle: {
         position: 'absolute',
-        bottom: -35.0,
-        left: 0.0,
+        bottom: 0.0,
         right: 0.0,
-    },
+        width: 200.0,
+        height: 150.0,
+      },
+      bannerWrapStyle: {
+        marginVertical: Sizes.fixPadding * 2.0,
+        backgroundColor: Colors.secondaryColor,
+        borderRadius: Sizes.fixPadding - 5.0,
+        marginHorizontal: Sizes.fixPadding * 2.0,
+        justifyContent: 'space-between',
+        padding: Sizes.fixPadding,
+      },
 });
 
 export default BorderTaxScreen;

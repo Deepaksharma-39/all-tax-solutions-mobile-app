@@ -17,9 +17,6 @@ import { Circle } from 'react-native-animated-spinkit';
 const BorderTaxBookingDetailsScreen = ({ navigation, route }) => {
     const { enquiry } = route.params;
     const [isLoading, setisLoading] = useState(false);
-const [amount,setAmount]=useState(null);
-
-
 
     const postQuery = async () => {
         const baseUrl = "https://api.allroadtaxsolutions.com";
@@ -27,6 +24,7 @@ const [amount,setAmount]=useState(null);
         try {
             // state, vehicleNumber, seatingCapacity, borderEntry, taxMode, fromDate, toDate,userId
 
+            setisLoading(true);
             const response = await axios.post(`${baseUrl}/enquiry`, {
                 state: enquiry.state,
                 vehicleNumber: enquiry?.vehicleNumber,
@@ -40,12 +38,7 @@ const [amount,setAmount]=useState(null);
 
             if (response.status === 200) {
                 console.log(response.data)
-                // navigation.push('BottomTabBar',{ userData: response.data })
-
-                setisLoading(true);
-                setTimeout(() => {
-                  setisLoading(false);
-                }, 2000);
+                await sendmail();
                 alert('Query Submitted');
                 navigation.pop();
             } else {
@@ -54,6 +47,8 @@ const [amount,setAmount]=useState(null);
         } catch (error) {
             console.log(error.response.data)
             alert("Try Again");
+        }finally{
+            setisLoading(false);
         }
 
     }
@@ -75,7 +70,7 @@ const [amount,setAmount]=useState(null);
     }
 
     const sendmail = async () => {
-        const baseUrl = "https://api.allroadtaxsolutions.com/email";
+        const baseUrl = "https://api.allroadtaxsolutions.com";
         try {
             // state, vehicleNumber, seatingCapacity, borderEntry, taxMode, fromDate, toDate,userId
             const response = await axios.post(`${baseUrl}/email`, {

@@ -2,15 +2,16 @@ import React, {useState, useCallback} from 'react';
 import {View, Text, StyleSheet, Image, BackHandler, Platform} from 'react-native';
 import HomeScreen from '../screens/home/homeScreen';
 import MallScreen from '../screens/mall/mallScreen';
-import HistoryScreen from '../screens/history/historyScreen';
 import ProfileScreen from '../screens/profile/profileScreen';
 import {Colors, Fonts, Sizes, commonStyles} from '../constants/styles';
 import {useFocusEffect} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { useSelector } from 'react-redux';
+import { selectAuth } from '../redux/authSlice';
 
 const Tab = createBottomTabNavigator();
 
-const BottomTabBarScreen = ({navigation,route}) => {
+const BottomTabBarScreen = ({navigation}) => {
   const backAction = () => {
     if (Platform.OS == 'ios') {
       navigation.addListener('beforeRemove', e => {
@@ -20,9 +21,10 @@ const BottomTabBarScreen = ({navigation,route}) => {
       backClickCount == 1 ? BackHandler.exitApp() : _spring();
     }
     return true;
-  };
+  };  
+  const { user } = useSelector(selectAuth);
+  const userData=user;
 
-const {userData} = route.params;
   useFocusEffect(
     useCallback(() => {
       BackHandler.addEventListener('hardwareBackPress', backAction);

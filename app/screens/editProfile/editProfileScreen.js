@@ -13,9 +13,14 @@ import { Colors, Fonts, Sizes, commonStyles } from '../../constants/styles';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MyStatusBar from '../../components/myStatusBar';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectAuth } from '../../redux/authSlice';
 
-const EditProfileScreen = ({ navigation,route }) => {
-  const {userData}=route.params;
+const EditProfileScreen = ({ navigation }) => {
+  const [isLoading, setisLoading] = useState(false);
+  const { user } = useSelector(selectAuth);
+  const dispatch = useDispatch();
+  const userData=user;
   const [state, setState] = useState({
     fullname: userData.fullname,
     email: userData.email,
@@ -24,14 +29,37 @@ const EditProfileScreen = ({ navigation,route }) => {
     showBottomSheet: false,
   });
 
-
+ 
   const updateState = data => setState(state => ({ ...state, ...data }));
 
   const { fullname, email, mobileNumber, password, showBottomSheet } = state;
 
 
-  const updateUserData=()=>{
-    console.log(state)
+  const updateUserData=async ()=>{
+    setisLoading(true);
+    const baseUrl = "https://api.allroadtaxsolutions.com";
+    try {
+      const response = await axios.put(`${baseUrl}/users/${userData.id}`, {
+        fullname: state.fullname,
+        mobile: state.registerMobileNo,
+        email: state.email,
+        password: state.registerPassword
+      });
+
+      if (response.status === 200) {
+        dispatch(login(response.data));
+        alert(`Update Successful`);
+        updateState({ viewLoginInfo: true })
+      } else {
+        alert(`Failed Please try again!`);
+        throw new Error("An error has occurred");
+      }
+    } catch (error) {
+      console.log(error.response.data)
+      alert("Try again");
+    }finally{
+      setisLoading(false);
+    }
   }
   return (
     <View style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
@@ -48,10 +76,29 @@ const EditProfileScreen = ({ navigation,route }) => {
           {editPasswordInfo()}
           {updateProfileButton()}
         </ScrollView>
-        {/* {changeProfilePicOptionsSheet()} */}
+        {changeProfilePicOptionsSheet()}
+        {loading()}
+
       </View>
     </View>
   );
+
+  function loading() {
+    return (
+      <Modal visible={isLoading} style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+        <View style={styles.dialogStyle}>
+          <Circle size={50} color={Colors.primaryColor} />
+          <Text
+            style={{
+              ...Fonts.grayColor16SemiBold,
+              marginTop: Sizes.fixPadding * 2.5,
+            }}>
+            Please Wait..
+          </Text>
+        </View>
+      </Modal>
+    );
+  }
 
   function changeProfilePicOptionsSheet() {
     return (      
@@ -145,8 +192,10 @@ const EditProfileScreen = ({ navigation,route }) => {
     return (
       <TouchableOpacity
         activeOpacity={0.6}
-        // onPress={() => updateUserData()}
-        onPress={() => navigation.pop()}
+        onPress={async() => {
+          await updateUserData();
+          navigation.pop()
+        }}
         style={styles.updateProfileButtonStyle}>
         <Text style={{ ...Fonts.whiteColor22Bold }}>Update Profile</Text>
       </TouchableOpacity>
@@ -309,6 +358,14 @@ const styles = StyleSheet.create({
     bottom: -5.0,
     position: 'absolute',
     right: 7.0,
+  },
+  dialogStyle: {
+    borderRadius: Sizes.fixPadding - 5.0,
+    backgroundColor: Colors.whiteColor,
+    alignItems: 'center',
+    padding: Sizes.fixPadding * 2.0,
+    width: '80%',
+    alignSelf: 'center'
   },
 });
 

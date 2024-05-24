@@ -41,7 +41,6 @@ const HelpScreen = ({navigation}) => {
           automaticallyAdjustKeyboardInsets={true}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{paddingBottom: Sizes.fixPadding}}>
-          {searchField()}
           {popularTopicsInfo()}
         </ScrollView>
       </View>

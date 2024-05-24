@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {
   BackHandler,
   View,
@@ -24,15 +24,17 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useFocusEffect } from "@react-navigation/native";
 import MyStatusBar from "../../components/myStatusBar";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Modal } from "react-native-paper";
 import { Circle } from "react-native-animated-spinkit";
+import { useDispatch, useSelector } from "react-redux";
+import { login, selectAuth } from "../../redux/authSlice";
+import { fetchVenueFailure, fetchVenueStart, fetchVenueSuccess, selectVenue } from "../../redux/venueSlice";
 
 const LoginScreen = ({ navigation }) => {
-  const domain = process.env.REACT_APP_API_DOMAIN;
   const [isLoading, setisLoading] = useState(false);
-  const [userData,setuserData]=useState({});
-
+    const dispatch = useDispatch();
+    const {isAuthenticated } = useSelector(selectAuth);
+    const venue = useSelector(selectVenue);
   const backAction = () => {
     if (Platform.OS == "ios") {
       navigation.addListener("beforeRemove", (e) => {
@@ -128,8 +130,8 @@ const LoginScreen = ({ navigation }) => {
       });
 
       if (response.status === 200) {
-        setuserData(response.data)
-        await AsyncStorage.setItem('userData', JSON.stringify(response.data));
+        // await AsyncStorage.setItem('userData', JSON.stringify(response.data));
+        dispatch(login(response.data));
         navigation.push('BottomTabBar',{ userData: response.data })
       } else {
         throw new Error("An error has occurred");
@@ -140,6 +142,31 @@ const LoginScreen = ({ navigation }) => {
     }
 
   }
+
+  useEffect(() => {
+    if (isAuthenticated && venue.status === 'idle') {
+      const fetchData = async () => {
+        dispatch(fetchVenueStart());
+        const baseUrl = "https://api.allroadtaxsolutions.com";
+        try {
+          const response = await axios.get(`${baseUrl}/venue`);
+
+          if (response.status === 200) {
+            dispatch(fetchVenueSuccess(response.data));
+          } else {
+            throw new Error("An error has occurred");
+          }
+        } catch (error) {
+          dispatch(fetchVenueFailure(error.message));
+          console.log(error.response ? error.response.data : error.message);
+          Alert.alert("Try Again");
+          navigation.pop();
+        }
+      };
+      
+      fetchData();
+    }
+  }, [isAuthenticated, dispatch, venue.status, navigation]);
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.whiteColor }}>

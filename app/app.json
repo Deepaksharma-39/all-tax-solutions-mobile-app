@@ -4,7 +4,7 @@
     "slug": "art-solution",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/logo2.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/images/icon.png",

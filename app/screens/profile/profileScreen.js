@@ -11,8 +11,6 @@ import {
 import { Colors, Fonts, Sizes, commonStyles } from '../../constants/styles';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MyStatusBar from '../../components/myStatusBar';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useEffect } from 'react';
 
 
 
@@ -33,25 +31,11 @@ const ProfileScreen = ({ navigation,route  }) => {
           contentContainerStyle={{ paddingBottom: Sizes.fixPadding * 2.0 }}>
           {userDetail()}
           {divider()}
-          {/* {profileOptions({
-            optionIcon: require('../../assets/images/icons/scan.png'),
-            option: 'My QR Code',
-            navigateTo: 'QrCode',
-          })}
-          {profileOptions({
-            optionIcon: require('../../assets/images/icons/heart.png'),
-            option: 'Favorites',
-            navigateTo: 'Favorites',
-          })}
-          {profileOptions({
-            optionIcon: require('../../assets/images/icons/wallet.png'),
-            option: 'Wallet',
-            navigateTo: 'Wallet',
-          })}
+         
           {profileOptions({
             optionIcon: require('../../assets/images/icons/notification.png'),
-            option: 'Notifications',
-            navigateTo: 'Notifications',
+            option: 'Download Reciept',
+            navigateTo: 'DownloadReciept',
           })}
           {profileOptions({
             optionIcon: require('../../assets/images/icons/help_line.png'),
@@ -61,8 +45,8 @@ const ProfileScreen = ({ navigation,route  }) => {
           {profileOptions({
             optionIcon: require('../../assets/images/icons/list.png'),
             option: 'Terms and Conditions',
-            navigateTo: 'TermsAndConditions',
-          })} */}
+            navigateTo: 'TermsCondition',
+          })}
           {logoutOption()}
         </ScrollView>
         {logoutDialog()}

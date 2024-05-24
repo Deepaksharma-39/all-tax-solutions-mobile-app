@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   View,
   FlatList,
@@ -14,106 +14,63 @@ import {
   Fonts,
   Sizes,
   commonStyles,
+  screenWidth,
 } from '../../constants/styles';
 import MyStatusBar from '../../components/myStatusBar';
 import { Circle } from 'react-native-animated-spinkit';
+import Carousel, { Pagination } from 'react-native-snap-carousel-v4';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectAuth } from '../../redux/authSlice';
 
-const quickRechargesAndBillPayOptionsList = [
+const movieBannerSliderList = [
   {
-    id: '1',
-    optionName: 'Recharge',
-    optionIcon: require('../../assets/images/icons/recharge.png'),
-    category: 'recharge',
+      moviePoster: require('../../assets/images/moive/shershaah.png'),
+      cashBackPercentage: 50,
+      movieName: 'Shershaah',
+      movieLanguage: 'Hindi',
+      movieCategory: '(U/A)',
   },
   {
-    id: '2',
-    optionName: 'FASTag Recharge',
-    optionIcon: require('../../assets/images/icons/fastag.png'),
-    category: 'recharge'
+      moviePoster: require('../../assets/images/moive/bellbottom.png'),
+      cashBackPercentage: 40,
+      movieName: 'Bell Bottom',
+      movieLanguage: 'Hindi',
+      movieCategory: '(U/A)',
   },
   {
-    id: '3',
-    optionName: 'GST',
-    optionIcon: require('../../assets/images/icons/tax.png'),
-    category: 'utilitiesBillsAndFincialServices',
-  },
-  {
-    id: '4',
-    optionName: 'Insurance',
-    optionIcon: require('../../assets/images/icons/insurance.png'),
-    category: 'utilitiesBillsAndFincialServices',
-  },
- 
-  {
-    id: '5',
-    optionName: 'Bus Ticket',
-    optionIcon: require('../../assets/images/icons/bus_ticket.png'),
-    category: 'bookTicket',
-  },
-  {
-    id: '6',
-    optionName: 'Payments',
-    optionIcon: require('../../assets/images/icons/payments.png'),
-    category: 'recharge',
-  },
-  {
-    id: '7',
-    optionName: 'Money Transfer',
-    optionIcon: require('../../assets/images/icons/money_transfer.png'),
-    category: 'recharge',
-  },
-  {
-    id: '8',
-    optionName: 'Landline',
-    optionIcon: require('../../assets/images/icons/landline.png'),
-    category: 'utilitiesBillsAndFincialServices',
-  },
-  {
-    id: '9',
-    optionName: 'Broadband',
-    optionIcon: require('../../assets/images/icons/broadband.png'),
-    category: 'utilitiesBillsAndFincialServices',
-  },
-  {
-    id: '10',
-    optionName: 'Electricity',
-    optionIcon: require('../../assets/images/icons/electricity.png'),
-    category: 'utilitiesBillsAndFincialServices',
-  },
-  {
-    id: '11',
-    optionName: 'Bill Payments',
-    optionIcon: require('../../assets/images/icons/bill_payments.png'),
-    category: 'utilitiesBillsAndFincialServices',
-  },
-  {
-    id: '12',
-    optionName: 'Loan Payment',
-    optionIcon: require('../../assets/images/icons/loan_payment.png'),
-    category: 'utilitiesBillsAndFincialServices',
+      moviePoster: require('../../assets/images/moive/chhichhore.png'),
+      cashBackPercentage: 30,
+      movieName: 'Chhichhore',
+      movieLanguage: 'Hindi',
+      movieCategory: '(U/A)',
   },
 ];
 
 
 
+const HomeScreen = ({ navigation }) => {
 
-const HomeScreen = ({ navigation,route }) => {
 
-  const {userData}=route.params;
+  const { user } = useSelector(selectAuth);
+  const userData=user;
   const [showLogoutDialog, setshowLogoutDialog] = useState(false);
   const [vehicleNumber,setVehicleNumber]=useState(null);
   const [isLoading, setisLoading] = useState(false);
-
+  const flatListRef = useRef();
+  const [activeSlide,setActiveSlide]=useState(0)
+  const [movieBanners,setMovieBanners]=useState(movieBannerSliderList)
   return (
     <View style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
+      {header()}
+
         <FlatList
           ListHeaderComponent={
             <>
-              {banner()}
-              {quickReachargesAndBillPaysInfo()}
+              {imageSlider()}
               {offersRewardsAndInviteNowOptions()}
+              {banner()}
               {payBorderTaxButton()}
               {DownloadRecieptButton()}
 
@@ -146,27 +103,94 @@ const HomeScreen = ({ navigation,route }) => {
     );
   }
 
-  function banner() {
+  function imageSlider() {
+    const renderItem = ({ item }) => (
+        <TouchableOpacity
+            activeOpacity={0.6}
+            // onPress={() => navigation.push('MovieCinemaAndSeatSelection', { item })}
+            style={styles.movieSliderWrapStyle}>
+            <Image source={item.moviePoster} style={styles.moviePosterStyle} />
+            <Text
+                style={{
+                    paddingVertical: Sizes.fixPadding - 5.0,
+                    paddingHorizontal: Sizes.fixPadding,
+                    ...Fonts.blackColor14SemiBold,
+                }}>
+                <Text>
+                    GET
+                    <Text style={{ ...Fonts.redColor14ExtraBold }}>
+                        {' '}
+                        {item.cashBackPercentage}%{' '}
+                    </Text>
+                    CASHBACK ON MOIVE TICKETS
+                </Text>
+            </Text>
+        </TouchableOpacity>
+    );
     return (
-      <View style={styles.bannerWrapStyle}>
         <View>
-          <Text style={{ ...Fonts.whiteColor16Bold }}>
-            Up to 20% cashback on bill payments every...
-          </Text>
-          <Text style={{ ...Fonts.whiteColor14Regular }}>
-            Lorem Ipsum is simply dummy text of the printing
-          </Text>
+            <Carousel
+                ref={flatListRef}
+                data={movieBanners}
+                sliderWidth={screenWidth}
+                autoplay={true}
+                loop={true}
+                autoplayInterval={4000}
+                itemWidth={screenWidth}
+                renderItem={renderItem}
+                onSnapToItem={index => {
+                    setActiveSlide(index);
+                }}
+            />
+            {pagination()}
         </View>
-        <View style={styles.knowMoreButtonStyle}>
-          <Text style={{ ...Fonts.whiteColor18Bold }}>Know More</Text>
+    );
+}
+function pagination() {
+  return (
+      <Pagination
+          dotsLength={movieBanners.length}
+          activeDotIndex={activeSlide}
+          containerStyle={styles.sliderPaginationWrapStyle}
+          dotStyle={styles.sliderActiveDotStyle}
+          inactiveDotStyle={styles.sliderInactiveDotStyle}
+      />
+  );
+}
+
+   function header() {
+    return (
+      <View style={styles.headerWrapStyle}>
+        <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+          <Image
+            source={require('../../assets/images/users/user.png')}
+            style={{width: 50.0, height: 50.0, borderRadius: 25.0}}
+          />
+          <View style={{marginLeft: Sizes.fixPadding}}>
+            <Text style={{...Fonts.blackColor14SemiBold}}>{userData.fullname}</Text>
+           
+          </View>
         </View>
-        <Image
-          source={require('../../assets/images/banner_image1.png')}
-          style={styles.bannerImageStyle}
-        />
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <TouchableOpacity
+            activeOpacity={0.6}
+            onPress={() => navigation.push('Notifications')}>
+            <Image
+              source={require('../../assets/images/icons/notification.png')}
+              style={{
+                width: 16.0,
+                height: 16.0,
+                marginHorizontal: Sizes.fixPadding + 5.0,
+              }}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
+        
+        </View>
       </View>
     );
   }
+  
 
   function offersRewardsAndInviteNowOptions() {
     return (
@@ -207,10 +231,7 @@ const HomeScreen = ({ navigation,route }) => {
     return (
       <TouchableOpacity
         activeOpacity={0.6}
-        onPress={() => {
-          setshowLogoutDialog(true)
-        
-        }}
+        onPress={() => navigation.push("DownloadReciept", {userData:userData})}
         style={styles.DownloadRecieptButton}>
 
         <Text style={{ ...Fonts.whiteColor22Bold }}>Download Receipt</Text>
@@ -239,69 +260,6 @@ const HomeScreen = ({ navigation,route }) => {
       </TouchableOpacity>
     );
   }
-
-
-  function quickReachargesAndBillPaysInfo() {
-    const renderItem = ({ item }) => (
-      <TouchableOpacity
-        activeOpacity={0.6}
-        // onPress={() => {
-        //   item.category == 'recharge'
-        //     ? navigation.push('MobileRecharge')
-        //     : item.category == 'utilitiesBillsAndFincialServices'
-        //       ? navigation.push('ElectricityBillPayment')
-        //       : item.category == 'bookTicket'
-        //         ? navigation.push('TicketBooking', {
-        //           index:
-        //             item.optionName == 'Flight Ticket'
-        //               ? 0
-        //               : item.optionName == 'Bus Ticket'
-        //                 ? 1
-        //                 : 2,
-        //         })
-        //         : navigation.push('QuickRechargesAndBillPays');
-        // }}
-        style={{
-          alignItems: 'center',
-          flex: 1,
-          marginBottom: Sizes.fixPadding * 2.0,
-        }}>
-        <Image
-          source={item.optionIcon}
-          style={{ width: 35.0, height: 35.0 }}
-          resizeMode="contain"
-        />
-        <Text
-          numberOfLines={1}
-          style={{
-            marginTop: Sizes.fixPadding - 5.0,
-            ...Fonts.blackColor12SemiBold,
-          }}>
-          {item.optionName}
-        </Text>
-      </TouchableOpacity>
-    );
-    return (
-      <View style={{ marginHorizontal: Sizes.fixPadding * 2.0 }}>
-        <Text
-          style={{
-            marginBottom: Sizes.fixPadding + 10.0,
-            ...Fonts.blackColor18Bold,
-          }}>
-          Quick Recharges & Bill Pays
-        </Text>
-        <FlatList
-          scrollEnabled={false}
-          data={quickRechargesAndBillPayOptionsList}
-          keyExtractor={item => `${item.id}`}
-          renderItem={renderItem}
-          numColumns={4}
-          showsVerticalScrollIndicator={false}
-        />
-      </View>
-    );
-  }
-
   function logoutDialog() {
 
    
@@ -369,7 +327,27 @@ const HomeScreen = ({ navigation,route }) => {
       </Modal>
     );
   }
-
+  function banner() {
+    return (
+      <View style={styles.bannerWrapStyle}>
+        <View>
+          <Text style={{ ...Fonts.whiteColor16Bold }}>
+            Up to 20% cashback on bill payments every...
+          </Text>
+          <Text style={{ ...Fonts.whiteColor14Regular }}>
+            Lorem Ipsum is simply dummy text of the printing
+          </Text>
+        </View>
+        <View style={styles.knowMoreButtonStyle}>
+          <Text style={{ ...Fonts.whiteColor18Bold }}>Know More</Text>
+        </View>
+        <Image
+          source={require('../../assets/images/banner_image1.png')}
+          style={styles.bannerImageStyle}
+        />
+      </View>
+    );
+  }
 
 };
 
@@ -421,15 +399,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginHorizontal: Sizes.fixPadding,
+    marginTop:20
   },
-  bannerWrapStyle: {
-    marginVertical: Sizes.fixPadding * 2.0,
-    backgroundColor: Colors.secondaryColor,
-    borderRadius: Sizes.fixPadding - 5.0,
-    marginHorizontal: Sizes.fixPadding * 2.0,
-    justifyContent: 'space-between',
-    padding: Sizes.fixPadding,
-  },
+  
   knowMoreButtonStyle: {
     marginTop: Sizes.fixPadding * 3.0,
     backgroundColor: Colors.primaryColor,
@@ -440,13 +412,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Sizes.fixPadding + 2.0,
     alignSelf: 'flex-start',
   },
-  bannerImageStyle: {
-    position: 'absolute',
-    bottom: 0.0,
-    right: 0.0,
-    width: 200.0,
-    height: 150.0,
-  },
+
   payBorderTaxButton: {
     backgroundColor: Colors.primaryColor,
     borderRadius: Sizes.fixPadding - 5.0,
@@ -455,7 +421,7 @@ const styles = StyleSheet.create({
     paddingVertical: Sizes.fixPadding + 5.0,
     borderWidth: 1.5,
     borderColor: "rgba(86, 0, 65, 0.2)",
-    marginVertical: Sizes.fixPadding + 14.0,
+    marginVertical: Sizes.fixPadding ,
     marginHorizontal: Sizes.fixPadding,
     ...commonStyles.buttonShadow,
   },
@@ -530,7 +496,53 @@ dialogStyle: {
 },
 disabledButtonStyle:{
   backgroundColor: Colors.grayColor,
-}
+},
+moviePosterStyle: {
+  height: 150.0,
+  width: '100%',
+  borderTopLeftRadius: Sizes.fixPadding - 5.0,
+  borderTopRightRadius: Sizes.fixPadding - 5.0,
+},
+movieSliderWrapStyle: {
+  backgroundColor: Colors.whiteColor,
+  borderRadius: Sizes.fixPadding - 5.0,
+  margin: Sizes.fixPadding * 2.0,
+  ...commonStyles.boxShadow,
+},
+sliderActiveDotStyle: {
+  width: 8,
+  height: 8,
+  borderRadius: 4.0,
+  backgroundColor: Colors.secondaryColor,
+  marginHorizontal: Sizes.fixPadding - 15.0,
+},
+sliderInactiveDotStyle: {
+  width: 15,
+  height: 15,
+  borderRadius: 7.5,
+  backgroundColor: Colors.grayColor,
+},
+sliderPaginationWrapStyle: {
+  position: 'absolute',
+  bottom: -35.0,
+  left: 0.0,
+  right: 0.0,
+},
+bannerWrapStyle: {
+  marginVertical: Sizes.fixPadding * 1.5,
+  backgroundColor: Colors.secondaryColor,
+  borderRadius: Sizes.fixPadding - 5.0,
+  marginHorizontal: Sizes.fixPadding * 2.0,
+  justifyContent: 'space-between',
+  padding: Sizes.fixPadding,
+},
+bannerImageStyle: {
+  position: 'absolute',
+  bottom: 0.0,
+  right: 0.0,
+  width: 200.0,
+  height: 150.0,
+},
 });
 
 export default HomeScreen;

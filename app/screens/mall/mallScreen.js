@@ -17,75 +17,6 @@ import {
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MyStatusBar from '../../components/myStatusBar';
 
-const shoppingCategoriesList = [
-  {
-    id: '1',
-    categoryImage: require('../../assets/images/shopping_category/fashion.png'),
-    categoryName: 'Fashion',
-  },
-  {
-    id: '2',
-    categoryImage: require('../../assets/images/shopping_category/electronics.png'),
-    categoryName: 'Electronics',
-  },
-  {
-    id: '3',
-    categoryImage: require('../../assets/images/shopping_category/phones.png'),
-    categoryName: 'Phones',
-  },
-  {
-    id: '4',
-    categoryImage: require('../../assets/images/shopping_category/devices.png'),
-    categoryName: 'Devices',
-  },
-  {
-    id: '5',
-    categoryImage: require('../../assets/images/shopping_category/beauty.png'),
-    categoryName: 'Beauty',
-  },
-  {
-    id: '6',
-    categoryImage: require('../../assets/images/shopping_category/home_decor.png'),
-    categoryName: 'Home Decor',
-  },
-  {
-    id: '7',
-    categoryImage: require('../../assets/images/shopping_category/toys_games.png'),
-    categoryName: 'Toys - Games',
-  },
-  {
-    id: '8',
-    categoryImage: require('../../assets/images/shopping_category/baby_care.png'),
-    categoryName: 'Baby Care Products',
-  },
-];
-
-const shoppingDealsList = [
-  {
-    id: '1',
-    shoppingDealImage: require('../../assets/images/shopping_deals/accessories.png'),
-    shoppingDeals: 'Accessories Deals',
-    offer: 'Up to 25% off',
-  },
-  {
-    id: '2',
-    shoppingDealImage: require('../../assets/images/shopping_deals/fashion.png'),
-    shoppingDeals: 'Fashion Deals',
-    offer: 'Up to 20% off',
-  },
-  {
-    id: '3',
-    shoppingDealImage: require('../../assets/images/shopping_deals/hair_care.png'),
-    shoppingDeals: 'Hair Care Deals',
-    offer: 'Up to 25% off',
-  },
-  {
-    id: '4',
-    shoppingDealImage: require('../../assets/images/shopping_deals/electronics_item.png'),
-    shoppingDeals: 'Electronics Items De...',
-    offer: 'Up to 20% off',
-  },
-];
 
 const MallScreen = ({ navigation }) => {
   return (
@@ -96,10 +27,7 @@ const MallScreen = ({ navigation }) => {
         <FlatList
           ListHeaderComponent={
             <>
-              {/* {searchInfo()}
-              {shoppingCategoriesInfo()}
-              {banner()}
-              {todaysDealsInfo()} */}
+        
               {comingSoon()}
             </>
           }
