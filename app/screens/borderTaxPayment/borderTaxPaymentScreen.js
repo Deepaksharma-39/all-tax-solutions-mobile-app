@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   Platform,
 } from "react-native";
+import { Dropdown } from 'react-native-searchable-dropdown-kj';
 import axios from 'axios';
 import {
   Colors,
@@ -28,10 +29,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Modal } from "react-native-paper";
 import { Circle } from "react-native-animated-spinkit";
 
-const LoginScreen = ({ navigation }) => {
+const BorderScreen = ({ navigation }) => {
   const domain = process.env.REACT_APP_API_DOMAIN;
   const [isLoading, setisLoading] = useState(false);
-  const [userData,setuserData]=useState({});
 
   const backAction = () => {
     if (Platform.OS == "ios") {
@@ -94,7 +94,8 @@ const LoginScreen = ({ navigation }) => {
     secureLoginPassword,
   } = state;
 
-  const handleRegister = async () => {
+
+  const handleRequest = async () => {
     const baseUrl = "https://api.allroadtaxsolutions.com";
     try {
       const response = await axios.post(`${baseUrl}/users/register`, {
@@ -128,9 +129,9 @@ const LoginScreen = ({ navigation }) => {
       });
 
       if (response.status === 200) {
-        setuserData(response.data)
+        console.log(response.data);
         await AsyncStorage.setItem('userData', JSON.stringify(response.data));
-        navigation.push('BottomTabBar',{ userData: response.data })
+        navigation.push('BottomTabBar')
       } else {
         throw new Error("An error has occurred");
       }
@@ -148,6 +149,7 @@ const LoginScreen = ({ navigation }) => {
         source={require("../../assets/images/bg2.png")}
         style={styles.bgImageStyle}
       >
+        {backArrow()}
         {appLogo()}
         <View style={{ flex: 1, justifyContent: "flex-end" }}>
           <ScrollView
@@ -159,7 +161,7 @@ const LoginScreen = ({ navigation }) => {
             automaticallyAdjustKeyboardInsets={true}
             showsVerticalScrollIndicator={false}
           >
-            {loginRegisterInfo()}
+            {borderPaymentInfo()}
           </ScrollView>
         </View>
       </ImageBackground>
@@ -167,6 +169,18 @@ const LoginScreen = ({ navigation }) => {
       {exitInfo()}
     </View>
   );
+
+  function backArrow() {
+    return (
+      <MaterialIcons
+        name="arrow-back-ios"
+        color={Colors.whiteColor}
+        size={24}
+        style={{ position: 'absolute', top: 20.0, left: 20.0, zIndex: 1 }}
+        onPress={() => navigation.pop()}
+      />
+    );
+  }
 
   function loading() {
     return (
@@ -195,10 +209,10 @@ const LoginScreen = ({ navigation }) => {
     ) : null;
   }
 
-  function loginRegisterInfo() {
+  function borderPaymentInfo() {
     return (
-      <View style={styles.loginRegisterInfoOuterWrapStyle}>
-        <View style={styles.loginRegisterInfoInnerWrapStyle}>
+      <View style={styles.borderPaymentInfoOuterWrapStyle}>
+        <View style={styles.borderPaymentInfoInnerWrapStyle}>
           <ScrollView
             nestedScrollEnabled={true}
             showsVerticalScrollIndicator={false}
@@ -208,8 +222,7 @@ const LoginScreen = ({ navigation }) => {
             }}
             automaticallyAdjustContentInsets={true}
           >
-            {loginRegisterOptions()}
-            {state.viewLoginInfo ? loginInfo() : registerInfo()}
+            {registerInfo()}
           </ScrollView>
         </View>
       </View>
@@ -226,26 +239,11 @@ const LoginScreen = ({ navigation }) => {
         {registerPasswordTextField()}
         {confirmPasswordTextField()}
         {registerButton()}
-        {alreadyAccountInfo()}
       </View>
     );
   }
 
-  function alreadyAccountInfo() {
-    return (
-      <Text style={{ textAlign: "center" }}>
-        <Text style={{ ...Fonts.blackColor18SemiBold }}>
-          Already have an account? { }
-        </Text>
-        <Text
-          onPress={() => updateState({ viewLoginInfo: true })}
-          style={{ ...Fonts.primaryColor18Bold }}
-        >
-          Login Now
-        </Text>
-      </Text>
-    );
-  }
+
 
   function registerButton() {
     return (
@@ -362,7 +360,7 @@ const LoginScreen = ({ navigation }) => {
       <View
         style={{ marginBottom: Sizes.fixPadding, ...styles.textFieldWrapStyle }}
       >
-        <MaterialIcons name="email" color={Colors.grayColor} size={15} />
+        <MaterialIcons name="emoji-transportation" color={Colors.grayColor} size={15} />
         <TextInput
           value={email}
           onChangeText={(text) => updateState({ email: text })}
@@ -370,13 +368,29 @@ const LoginScreen = ({ navigation }) => {
           placeholderTextColor={Colors.grayColor}
           style={styles.textFieldStyle}
           selectionColor={Colors.primaryColor}
-          keyboardType="email-address"
         />
       </View>
     );
   }
 
+
+  
   function fullNameTextField() {
+    const [value, setValue] = useState(null);
+    const [isFocus, setIsFocus] = useState(false);
+
+
+    const data = [
+      { label: 'Item 1', value: '1' },
+      { label: 'Item 2', value: '2' },
+      { label: 'Item 3', value: '3' },
+      { label: 'Item 4', value: '4' },
+      { label: 'Item 5', value: '5' },
+      { label: 'Item 6', value: '6' },
+      { label: 'Item 7', value: '7' },
+      { label: 'Item 8', value: '8' },
+    ];
+
     return (
       <View
         style={{
@@ -385,14 +399,26 @@ const LoginScreen = ({ navigation }) => {
           ...styles.textFieldWrapStyle,
         }}
       >
-        <MaterialIcons name="person" color={Colors.grayColor} size={15} />
-        <TextInput
-          value={fullName}
-          onChangeText={(text) => updateState({ fullName: text })}
-          placeholder="Full Name"
-          placeholderTextColor={Colors.grayColor}
-          style={styles.textFieldStyle}
-          selectionColor={Colors.primaryColor}
+        <Dropdown
+          style={[styles.textFieldStyle]}
+          placeholderStyle={styles.placeholderStyle}
+          selectedTextStyle={styles.selectedTextStyle}
+          inputSearchStyle={styles.inputSearchStyle}
+          data={data}
+          search
+          labelField="label"
+          valueField="value"
+          searchPlaceholder="Select New"
+          value={value}
+          onFocus={() => setIsFocus(true)}
+          onBlur={() => setIsFocus(false)}
+          onChange={item => {
+            setValue(item.value);
+            setIsFocus(false);
+          }}
+          renderLeftIcon={() => (
+            <MaterialIcons name="home" color={Colors.grayColor} size={15} />
+          )}
         />
       </View>
     );
@@ -402,173 +428,17 @@ const LoginScreen = ({ navigation }) => {
     return (
       <View style={{ marginTop: Sizes.fixPadding + 5.0, alignItems: "center" }}>
         <Text style={{ textAlign: "center", ...Fonts.blackColor20Bold }}>
-          Welcome to Digital Payment
+          Border Tax Payment
         </Text>
         <Text style={{ textAlign: "center", ...Fonts.grayColor16SemiBold }}>
-          Let’s create your account
+          Easy way to pay border tax
         </Text>
       </View>
     );
   }
 
-  function loginInfo() {
-    return (
-      <View>
-        {welcomeBackText()}
-        {loginMobileNumberTextField()}
-        {loginPasswordTextField()}
-        {forgetpasswordText()}
-        {loginButton()}
-        {dontAccountInfo()}
-      </View>
-    );
-  }
 
-  function dontAccountInfo() {
-    return (
-      <Text style={{ textAlign: "center" }}>
-        <Text style={{ ...Fonts.blackColor18SemiBold }}>
-          Don’t have an account?{` `}
-        </Text>
-        <Text
-          onPress={() => updateState({ viewLoginInfo: false })}
-          style={{ ...Fonts.primaryColor18Bold }}
-        >
-          Register Now
-        </Text>
-      </Text>
-    );
-  }
-
-  function loginButton() {
-    return (
-      <TouchableOpacity
-        activeOpacity={0.6}
-        onPress={()=>{
-          setisLoading(true);
-          handleLogin();
-          setTimeout(() => {
-            setisLoading(false);
-          }, 2000);
-        }}
-        style={styles.loginRegisterButtonStyle}
-      >
-        <Text style={{ ...Fonts.whiteColor22Bold }}>Login</Text>
-      </TouchableOpacity>
-    );
-  }
-
-  function forgetpasswordText() {
-    return (
-      <Text
-        style={{
-          marginTop: Sizes.fixPadding - 5.0,
-          textAlign: "right",
-          ...Fonts.primaryColor14SemiBold,
-        }}
-      >
-        Forget password?
-      </Text>
-    );
-  }
-
-  function loginPasswordTextField() {
-    return (
-      <View
-        style={{
-          justifyContent: "space-between",
-          ...styles.textFieldWrapStyle,
-        }}
-      >
-        <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
-          <MaterialIcons name="lock" color={Colors.grayColor} size={15} />
-          <TextInput
-            secureTextEntry={secureLoginPassword}
-            value={loginPassword}
-            onChangeText={(text) => { updateState({ loginPassword: text }) }}
-            placeholder="Password"
-            placeholderTextColor={Colors.grayColor}
-            style={styles.textFieldStyle}
-            selectionColor={Colors.primaryColor}
-            textContentType="oneTimeCode"
-          />
-        </View>
-        <MaterialCommunityIcons
-          name={secureLoginPassword ? "eye" : "eye-off"}
-          color={Colors.grayColor}
-          size={15}
-          onPress={() =>
-            updateState({ secureLoginPassword: !secureLoginPassword })
-          }
-        />
-      </View>
-    );
-  }
-
-  function loginMobileNumberTextField() {
-    return (
-      <View
-        style={{
-          marginBottom: Sizes.fixPadding,
-          marginTop: Sizes.fixPadding * 2.5,
-          ...styles.textFieldWrapStyle,
-        }}
-      >
-        <MaterialIcons
-          name="phone-android"
-          color={Colors.grayColor}
-          size={15}
-        />
-        <TextInput
-          value={loginMobileNo}
-          onChangeText={(text) => updateState({ loginMobileNo: text })}
-          placeholder="Mobile Number"
-          placeholderTextColor={Colors.grayColor}
-          style={styles.textFieldStyle}
-          selectionColor={Colors.primaryColor}
-          keyboardType="phone-pad"
-        />
-      </View>
-    );
-  }
-
-  function welcomeBackText() {
-    return (
-      <View style={{ marginTop: Sizes.fixPadding + 5.0, alignItems: "center" }}>
-        <Text style={{ ...Fonts.blackColor20Bold }}>Welcome Back</Text>
-        <Text style={{ textAlign: "center", ...Fonts.grayColor16SemiBold }}>
-          We’re happy to see you again
-        </Text>
-      </View>
-    );
-  }
-
-  function loginRegisterOptions() {
-    return (
-      <View style={styles.loginRegisterOptionsWrapStyle}>
-        <Text
-          onPress={() => updateState({ viewLoginInfo: true })}
-          style={
-            viewLoginInfo
-              ? { ...Fonts.primaryColor25ExtraBold }
-              : { ...Fonts.grayColor25ExtraBold }
-          }
-        >
-          Login
-        </Text>
-        <Text
-          onPress={() => updateState({ viewLoginInfo: false })}
-          style={
-            !viewLoginInfo
-              ? { ...Fonts.primaryColor25ExtraBold }
-              : { ...Fonts.grayColor25ExtraBold }
-          }
-        >
-          Register
-        </Text>
-      </View>
-    );
-  }
+ 
 
   function appLogo() {
     return (
@@ -577,7 +447,7 @@ const LoginScreen = ({ navigation }) => {
           source={require("../../assets/images/logo1.png")}
           style={{
             width: 130.0,
-            height: 75.0,
+            height: 55.0,
             resizeMode: "contain",
             marginBottom: Sizes.fixPadding * 2.0,
           }}
@@ -588,6 +458,30 @@ const LoginScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  placeholderStyle: {
+    fontSize: 16,
+    color:Colors.grayColor
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  label: {
+    position: 'absolute',
+    backgroundColor: 'white',
+    left: 22,
+    top: 8,
+    zIndex: 999,
+    paddingHorizontal: 8,
+    fontSize: 14,
+  },
   bgImageStyle: {
     width: "100%",
     height: screenHeight / 2.5,
@@ -641,7 +535,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     height: 200.0,
   },
-  loginRegisterInfoOuterWrapStyle: {
+  borderPaymentInfoOuterWrapStyle: {
     backgroundColor: Colors.whiteColor,
     borderRadius: Sizes.fixPadding * 5.0,
     height: screenHeight - 250,
@@ -651,20 +545,26 @@ const styles = StyleSheet.create({
     zIndex: 1,
     ...commonStyles.boxShadow,
   },
-  loginRegisterInfoInnerWrapStyle: {
+  borderPaymentInfoInnerWrapStyle: {
     marginTop: Sizes.fixPadding * 3.0,
     marginBottom: Sizes.fixPadding,
     marginHorizontal: Sizes.fixPadding * 2.0,
     flex: 1,
   },
-  dialogStyle: {
-    borderRadius: Sizes.fixPadding - 5.0,
-    backgroundColor: Colors.whiteColor,
-    alignItems: 'center',
-    padding: Sizes.fixPadding * 2.0,
-    width: '80%',
-    alignSelf: 'center'
+  placeholderStyle: {
+    fontSize: 16,
   },
+  selectedTextStyle: {
+    fontSize: 16,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
+  }
 });
 
-export default LoginScreen;
+export default BorderScreen;
