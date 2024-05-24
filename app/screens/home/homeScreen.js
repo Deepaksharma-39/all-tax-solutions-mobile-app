@@ -46,8 +46,6 @@ const movieBannerSliderList = [
   },
 ];
 
-
-
 const HomeScreen = ({ navigation }) => {
 
 
