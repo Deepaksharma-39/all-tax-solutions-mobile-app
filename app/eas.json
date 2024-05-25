@@ -14,7 +14,7 @@
     },
     "production": {
       "android": {
-        "buildType": "app-bundle" // Specifies building Android App Bundle (.aab) for production
+        "buildType": "app-bundle" 
       }
     }
   },
