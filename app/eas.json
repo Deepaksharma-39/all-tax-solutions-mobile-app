@@ -13,13 +13,13 @@
     },
     "production": {
       "android": {
-        "buildType": "app-bundle" ,
-        "image":"latest"
+        "buildType": "app-bundle",
+        "image": "latest"
       }
     }
   },
   "submit": {
     "production": {}
-  }
+  },
+  "secrets": {}
 }
-
