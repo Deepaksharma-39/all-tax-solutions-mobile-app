@@ -15,6 +15,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MyStatusBar from '../../components/myStatusBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuth } from '../../redux/authSlice';
+import { Circle } from "react-native-animated-spinkit";
 
 const EditProfileScreen = ({ navigation }) => {
   const [isLoading, setisLoading] = useState(false);

@@ -6,7 +6,7 @@
   "icon": "./assets/images/logo2.png",
   "userInterfaceStyle": "light",
   "splash": {
-    "image": "./assets/images/icon.png",
+    "image": "./assets/images/icon.png", 
     "resizeMode": "contain",
     "backgroundColor": "#ffffff"
   },
@@ -20,9 +20,9 @@
   },
   "android": {
     "package": "com.allroadtaxsolutions",
-    "versionCode": 2,
+    "versionCode": 4,
     "adaptiveIcon": {
-      "foregroundImage": "./assets/images/icon.png",
+      "foregroundImage": "./assets/images/logo2.png",
       "backgroundColor": "#FFFFFF"
     }
   },

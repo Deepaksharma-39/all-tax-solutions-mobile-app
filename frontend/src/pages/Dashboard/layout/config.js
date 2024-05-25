@@ -2,7 +2,7 @@ import UserIcon from "@heroicons/react/24/solid/UserIcon";
 
 import { SvgIcon } from "@mui/material";
 import { EmojiTransportationSharp } from "@mui/icons-material";
-import {  FaUsers } from "react-icons/fa";
+import {  FaUsers,FaImages } from "react-icons/fa";
 
 
 export const items = [
@@ -30,6 +30,15 @@ export const items = [
     icon: (
       <SvgIcon fontSize="small">
        <FaUsers />
+      </SvgIcon>
+    ),
+  },
+  {
+    title: "Banner",
+    path: "/admin/banners",
+    icon: (
+      <SvgIcon fontSize="small">
+       <FaImages />
       </SvgIcon>
     ),
   }

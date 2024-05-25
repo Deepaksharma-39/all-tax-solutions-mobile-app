@@ -19,7 +19,7 @@ app.use(cors());
 
 
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://allroadtaxsolutions.com'); // Allow requests from any origin
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // Allow requests from any origin
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Credentials', true);
@@ -65,6 +65,38 @@ app.route('/upload/:id').post(authorize(['admin']), (req, res, next) => {
   });
 });
 
+const bannerPath = path.join(__dirname, 'banner/'); // Register the upload path
+fs.ensureDir(bannerPath); // Make sure that he upload path exits
+
+function generateUniqueFilename(originalFilename) {
+  const timestamp = new Date().getTime();
+  const randomString = Math.random().toString(36).substring(7);
+  const fileExtension = path.extname(originalFilename);
+  return `${timestamp}_${randomString}${fileExtension}`;
+}
+app.route('/banner').post(authorize(['admin']), (req, res, next) => {
+  req.pipe(req.busboy); // Pipe it through busboy
+
+  req.busboy.on('file', (fieldname, file, filename) => {
+      console.log(`Upload of '${filename.filename}' started`);
+
+      // Generate a unique filename
+      const uniqueFilename = generateUniqueFilename(filename.filename);
+
+      // Create a write stream of the new file
+      const fstream = fs.createWriteStream(path.join(bannerPath, uniqueFilename));
+
+      // Pipe it through
+      file.pipe(fstream);
+
+      // On finish of the upload
+      fstream.on('close', () => {
+          console.log(`Upload of '${filename.filename}' finished`);
+          res.status(200).send({ message: 'File uploaded successfully', filename: uniqueFilename });
+      });
+  });
+});
+
 app.route('/files/:name').get(authorize(), (req, res) => {
   const name = req.params.name;
   const uploadPath = path.join(__dirname, 'upload', name); // Assuming uploads are stored in a folder named 'uploads'
@@ -86,6 +118,7 @@ app.route('/files/:name').get(authorize(), (req, res) => {
 app.use("/users", require("./mvc/users/user.controller"));
 app.use("/venue", require("./mvc/venue/venue.controller"));
 app.use("/enquiry", require("./mvc/enquiry/enquiry.controller"));
+app.use("/banners", require("./mvc/banner/banner.controller"));
 
 app.post('/email', async (req, res) => {
 

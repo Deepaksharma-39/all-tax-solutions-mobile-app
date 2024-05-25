@@ -9,6 +9,7 @@ import Home from "./pages/Dashboard/pages/Home";
 import Border from "./pages/Dashboard/pages/Border";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import Customer from "./pages/Dashboard/pages/Customer";
+import Banner from "./pages/Dashboard/pages/Banner";
 
 function App() {
   useEffect(() => {
@@ -35,6 +36,7 @@ function App() {
             <Route exact path="/admin/dashboard" element={<Home />} />
             <Route exact path="/admin/border" element={<Border />} />
             <Route exact path="/admin/users" element={<Customer />} />
+            <Route exact path="/admin/banners" element={<Banner />} />
 
           </Route>
 
