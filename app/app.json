@@ -37,6 +37,7 @@
   ],
   "extra": {
     "eas": {
+      "owner": "deepak39123",
       "projectId": "45e5a8e1-073d-4850-b2dd-88146ff42b16"
     }
   }
