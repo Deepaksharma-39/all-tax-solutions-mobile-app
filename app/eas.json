@@ -1,13 +1,25 @@
-
 {
+  "cli": {
+    "version": ">= 2.6.0"
+  },
   "build": {
     "development": {
       "developmentClient": true,
       "distribution": "internal"
     },
     "preview": {
-      "distribution": "internal"
+      "android": {
+        "buildType": "apk"
+      }
     },
+    "production": {
+      "android": {
+        "buildType": "app-bundle" // Specifies building Android App Bundle (.aab) for production
+      }
+    }
+  },
+  "submit": {
     "production": {}
   }
 }
+
