@@ -128,7 +128,7 @@ function Office() {
               const response = await axios.post(
                 `${domain}/banners`,
                 { filename: filename,
-                    description:description
+                    description:data.description
                  },
                 {
                   headers: {
