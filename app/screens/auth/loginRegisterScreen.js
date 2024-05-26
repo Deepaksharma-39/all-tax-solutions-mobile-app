@@ -29,11 +29,18 @@ import { Circle } from "react-native-animated-spinkit";
 import { useDispatch, useSelector } from "react-redux";
 import { login, selectAuth } from "../../redux/authSlice";
 import { fetchVenueFailure, fetchVenueStart, fetchVenueSuccess, selectVenue } from "../../redux/venueSlice";
+import { fetchBanners } from "../../redux/bannerSlice";
 
 const LoginScreen = ({ navigation }) => {
   const [isLoading, setisLoading] = useState(false);
     const dispatch = useDispatch();
+
     const {isAuthenticated } = useSelector(selectAuth);
+
+    useEffect(() => {
+      dispatch(fetchBanners());
+    }, [dispatch]);
+
     const venue = useSelector(selectVenue);
   const backAction = () => {
     if (Platform.OS == "ios") {

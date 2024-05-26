@@ -21,30 +21,10 @@ import { Circle } from 'react-native-animated-spinkit';
 import Carousel, { Pagination } from 'react-native-snap-carousel-v4';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuth } from '../../redux/authSlice';
+import { selectBanner } from '../../redux/bannerSlice';
 
-const movieBannerSliderList = [
-  {
-      moviePoster: require('../../assets/images/moive/shershaah.png'),
-      cashBackPercentage: 50,
-      movieName: 'Shershaah',
-      movieLanguage: 'Hindi',
-      movieCategory: '(U/A)',
-  },
-  {
-      moviePoster: require('../../assets/images/moive/bellbottom.png'),
-      cashBackPercentage: 40,
-      movieName: 'Bell Bottom',
-      movieLanguage: 'Hindi',
-      movieCategory: '(U/A)',
-  },
-  {
-      moviePoster: require('../../assets/images/moive/chhichhore.png'),
-      cashBackPercentage: 30,
-      movieName: 'Chhichhore',
-      movieLanguage: 'Hindi',
-      movieCategory: '(U/A)',
-  },
-];
+
+
 
 const HomeScreen = ({ navigation }) => {
 
@@ -56,7 +36,15 @@ const HomeScreen = ({ navigation }) => {
   const [isLoading, setisLoading] = useState(false);
   const flatListRef = useRef();
   const [activeSlide,setActiveSlide]=useState(0)
-  const [movieBanners,setMovieBanners]=useState(movieBannerSliderList)
+  const { data, status, error } = useSelector(selectBanner);
+  console.log(data)
+  const convertedBanners = data?.map(banner => {
+    return {
+        moviePoster: `https://api.allroadtaxsolutions.com/admin/banner/${banner.filename}`,
+        description: banner.description, // Assuming the description is the movie name
+    };
+  });
+  
   return (
     <View style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
       <MyStatusBar />
@@ -107,7 +95,7 @@ const HomeScreen = ({ navigation }) => {
             activeOpacity={0.6}
             // onPress={() => navigation.push('MovieCinemaAndSeatSelection', { item })}
             style={styles.movieSliderWrapStyle}>
-            <Image source={item.moviePoster} style={styles.moviePosterStyle} />
+            <Image source={{ uri: item.moviePoster }} style={styles.moviePosterStyle} />
             <Text
                 style={{
                     paddingVertical: Sizes.fixPadding - 5.0,
@@ -115,12 +103,10 @@ const HomeScreen = ({ navigation }) => {
                     ...Fonts.blackColor14SemiBold,
                 }}>
                 <Text>
-                    GET
                     <Text style={{ ...Fonts.redColor14ExtraBold }}>
                         {' '}
-                        {item.cashBackPercentage}%{' '}
+                        {item.description}
                     </Text>
-                    CASHBACK ON MOIVE TICKETS
                 </Text>
             </Text>
         </TouchableOpacity>
@@ -129,7 +115,7 @@ const HomeScreen = ({ navigation }) => {
         <View>
             <Carousel
                 ref={flatListRef}
-                data={movieBanners}
+                data={convertedBanners}
                 sliderWidth={screenWidth}
                 autoplay={true}
                 loop={true}
@@ -147,7 +133,7 @@ const HomeScreen = ({ navigation }) => {
 function pagination() {
   return (
       <Pagination
-          dotsLength={movieBanners.length}
+          dotsLength={data.length}
           activeDotIndex={activeSlide}
           containerStyle={styles.sliderPaginationWrapStyle}
           dotStyle={styles.sliderActiveDotStyle}
