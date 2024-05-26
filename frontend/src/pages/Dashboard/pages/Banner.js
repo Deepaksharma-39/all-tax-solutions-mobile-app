@@ -104,7 +104,7 @@ function Office() {
           
 
             const response = await axios.post( 
-              `${domain}/banner`,
+              `${domain}/admin/banner`,
               formData,
               {
                 headers: {
