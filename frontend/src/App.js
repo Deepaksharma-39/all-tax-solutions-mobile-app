@@ -29,6 +29,8 @@ function App() {
       <Fragment>
         <Routes>
         <Route exact path="/" element={<SignIn />} />
+        <Route exact path="/privacy" element={<SignIn />} />
+        <Route exact path="/user-data" element={<SignIn />} />
           {/* Admin Section */}
           <Route exact path="/admin" element={<SignIn />} />
 
