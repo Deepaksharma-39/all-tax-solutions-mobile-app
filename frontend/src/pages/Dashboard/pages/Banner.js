@@ -63,34 +63,6 @@ function Office() {
         setLoading(true);
         setFile(event.target.files[0]);
 
-        const formData = new FormData();
-        formData.append("file", event.target.files[0]);
-
-        try {
-            const response = await axios.post(
-                `${domain}/banner`,
-                formData,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Content-Type': 'multipart/form-data'
-                    },
-                }
-            );
-
-            if (response.status !== 200) {
-                throw new Error("File upload failed");
-            }
-      
-            setFilename(response.data.filename)
-
-            // Handle success if needed
-        } catch (error) {
-            console.error("Error uploading file:", error);
-            alert("File upload failed. Please try again.");
-        } finally {
-            setLoading(false);
-        }
     };
 
 
@@ -123,39 +95,70 @@ function Office() {
 
     const handleSave = async () => {
         try {
-            if (!data) {
-                alert("try again");
+            if (!file) {
+              throw new Error("No file selected");
             }
+      
+            const formData = new FormData();
+            formData.append("file", file);
+          
 
-            const formData = {
-                filename: filename,
-                description: data.description,
-              };
-            console.log(filename,data.description);
-            const response = await axios.post(`${domain}/banners`, formData, {
+            const response = await axios.post( 
+              `${domain}/banner`,
+              formData,
+              {
                 headers: {
                   Authorization: `Bearer ${token}`,
-                  "Content-Type": "application/json",
+                  'Content-Type': 'multipart/form-data' // Ensure proper content type
                 },
-              });
-
+              }
+            );
+      
             if (response.status !== 200) {
-                setSuccessMsg(response.data.message);
-                setFailure(true);
-                throw new Error("Failed to add file");
+              throw new Error("Failed to PDF file");
             }
-
+      
+            const filename = response.data.filename;
+      
+            try {
+              if (!filename) {
+                throw new Error("No file selected");
+              }
+      
+              const response = await axios.post(
+                `${domain}/banners`,
+                { filename: filename,
+                    description:description
+                 },
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                    // 'Content-Type': 'multipart/form-data' // Ensure proper content type
+                  },
+                }
+              );
+      
+              if (response.status !== 200) {
+                throw new Error("Failed to upload file ");
+              }
+      
+              console.log("path updated successfully");
+              setEditOpen(false);
+              setKey(() => key + 1);
+              // Additional actions upon successful upload, if needed
+            } catch (error) {
+              console.error("Error uploading file path:", error.message);
+              // Additional error handling, if needed
+            }
+      
+      
             // Handle successful upload
-            setSuccess(true);
-            setSuccessMsg(response.data.message);
-            setEditOpen(false);
-            handleKeyChange();
-        } catch (error) {
-            console.log(error);
-            setFailure(true);
-            setSuccessMsg(error.response.data.message);
-            console.error("Error uploading data:", error.message);
-        }
+            console.log("file uploaded successfully");
+            // Additional actions upon successful upload, if needed
+          } catch (error) {
+            console.error("Error uploading file:", error.message);
+            // Additional error handling, if needed
+          }
     };
 
 

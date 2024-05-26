@@ -92,8 +92,8 @@ app.route('/banner').post(authorize(['admin']), (req, res, next) => {
       // On finish of the upload
       fstream.on('close', () => {
           console.log(`Upload of '${filename.filename}' finished`);
-          res.status(200).send({ message: 'File uploaded successfully', filename: uniqueFilename });
-      });
+        });
+        res.status(200).send({ message: 'File uploaded successfully', filename: uniqueFilename });
   });
 });
 
