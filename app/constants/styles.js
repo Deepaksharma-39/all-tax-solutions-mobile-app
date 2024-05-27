@@ -420,8 +420,8 @@ export const Fonts = {
 export const Colors = {
     blackColor: '#000000',
     whiteColor: '#ffffff',
-    primaryColor: '#560041',
-    secondaryColor: '#FE6B12',
+    primaryColor: '#5F259F',
+    secondaryColor: '#372163',
     grayColor: '#B7B7B7',
     lightWhiteColor: '#F2F4F6',
     redColor: '#FF0000',
