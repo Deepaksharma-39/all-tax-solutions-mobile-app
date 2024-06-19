@@ -30,11 +30,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, selectAuth } from "../../redux/authSlice";
 import { fetchVenueFailure, fetchVenueStart, fetchVenueSuccess, selectVenue } from "../../redux/venueSlice";
 import { fetchBanners } from "../../redux/bannerSlice";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = ({ navigation }) => {
   const [isLoading, setisLoading] = useState(false);
     const dispatch = useDispatch();
 
+    useEffect(() => {
+      const getLocalstorageData = async () => {
+        let userData = await AsyncStorage.getItem("LOGIN_DATA");
+        if (userData) {
+          userData = JSON.parse(userData);
+          dispatch(login(userData));
+          navigation.push("BottomTabBar", { userData: userData });
+        }
+      };
+      getLocalstorageData();
+    }, []);
     const {isAuthenticated } = useSelector(selectAuth);
 
     useEffect(() => {
@@ -138,7 +150,10 @@ const LoginScreen = ({ navigation }) => {
 
       if (response.status === 200) {
         // await AsyncStorage.setItem('userData', JSON.stringify(response.data));
-        dispatch(login(response.data));
+       await dispatch(login(response.data));
+        console.log("hello",response.data);
+        await AsyncStorage.setItem("LOGIN_DATA", JSON.stringify(response.data))
+        console.log("there");
         navigation.push('BottomTabBar',{ userData: response.data })
       } else {
         throw new Error("An error has occurred");

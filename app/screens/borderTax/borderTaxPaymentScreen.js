@@ -281,7 +281,7 @@ const BorderTaxScreen = ({ navigation }) => {
                     onChangeText={text => updateState({ vehicleNumber: text })}
                     style={styles.textFieldWrapStyle}
                     selectionColor={Colors.primaryColor}
-                    keyboardType="text"
+                    keyboardType="default"
                 />
             </View>
         );

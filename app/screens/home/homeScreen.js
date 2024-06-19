@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   View,
   FlatList,
@@ -21,7 +21,7 @@ import { Circle } from 'react-native-animated-spinkit';
 import Carousel, { Pagination } from 'react-native-snap-carousel-v4';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuth } from '../../redux/authSlice';
-import { selectBanner } from '../../redux/bannerSlice';
+import { fetchBanners, selectBanner } from '../../redux/bannerSlice';
 
 
 
@@ -36,15 +36,41 @@ const HomeScreen = ({ navigation }) => {
   const [isLoading, setisLoading] = useState(false);
   const flatListRef = useRef();
   const [activeSlide,setActiveSlide]=useState(0)
+  const dispatch = useDispatch()
   const { data, status, error } = useSelector(selectBanner);
-  console.log(data)
-  const convertedBanners = data?.map(banner => {
-    return {
-        moviePoster: `https://api.allroadtaxsolutions.com/admin/banner/${banner.filename}`,
-        description: banner.description, // Assuming the description is the movie name
-    };
-  });
-  
+
+  useEffect(() => {
+    dispatch(fetchBanners());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (status === 'succeeded' || status === 'failed') {
+      setisLoading(false);
+    }
+  }, [status]);
+
+  const convertedBanners = Array.isArray(data) ? data.map(banner => ({
+    moviePoster: `https://api.allroadtaxsolutions.com/admin/banner/${banner.filename}`,
+    description: banner.description,
+  })) : [];
+
+  if (isLoading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#0000ff" />
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+
+  if (status === 'failed') {
+    return (
+      <View style={styles.errorContainer}>
+        <Text>Error: {error}</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
       <MyStatusBar />
@@ -115,7 +141,7 @@ const HomeScreen = ({ navigation }) => {
         <View>
             <Carousel
                 ref={flatListRef}
-                data={convertedBanners}
+                data={convertedBanners||[]}
                 sliderWidth={screenWidth}
                 autoplay={true}
                 loop={true}
@@ -133,7 +159,7 @@ const HomeScreen = ({ navigation }) => {
 function pagination() {
   return (
       <Pagination
-          dotsLength={data.length}
+          dotsLength={data?data.length:1}
           activeDotIndex={activeSlide}
           containerStyle={styles.sliderPaginationWrapStyle}
           dotStyle={styles.sliderActiveDotStyle}
@@ -276,7 +302,7 @@ function pagination() {
                     onChangeText={text => setVehicleNumber(text)}
                     style={styles.textFieldWrapStyle}
                     selectionColor={Colors.primaryColor}
-                    keyboardType="text"
+                    keyboardType="default"
                 />
                 <View
                   style={{

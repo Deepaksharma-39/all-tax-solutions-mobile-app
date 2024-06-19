@@ -1,13 +1,11 @@
-import React, { useCallback } from 'react';
-import {
-  View,
-  Image,
-  ImageBackground,
-  BackHandler,
-} from 'react-native';
-import { Colors, screenWidth } from '../constants/styles';
-import { useFocusEffect } from '@react-navigation/native';
-import MyStatusBar from '../components/myStatusBar';
+import React, { useCallback, useEffect } from "react";
+import { View, Image, ImageBackground, BackHandler } from "react-native";
+import { Colors, screenWidth } from "../constants/styles";
+import { useFocusEffect } from "@react-navigation/native";
+import MyStatusBar from "../components/myStatusBar";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/authSlice";
 
 const SplashScreen = ({ navigation }) => {
   const backAction = () => {
@@ -17,26 +15,32 @@ const SplashScreen = ({ navigation }) => {
 
   useFocusEffect(
     useCallback(() => {
-      BackHandler.addEventListener('hardwareBackPress', backAction);
+      BackHandler.addEventListener("hardwareBackPress", backAction);
       return () =>
-        BackHandler.removeEventListener('hardwareBackPress', backAction);
-    }, [backAction]),
+        BackHandler.removeEventListener("hardwareBackPress", backAction);
+    }, [backAction])
   );
 
   setTimeout(() => {
-    navigation.push('Onboarding');
+    navigation.push("Onboarding");
   }, 2000);
+
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.whiteColor }}>
       <MyStatusBar />
       <View style={{ flex: 1 }}>
         <ImageBackground
-          source={require('../assets/images/bg.png')}
-          style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          source={require("../assets/images/bg.png")}
+          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+        >
           <Image
-            source={require('../assets/images/logo1.png')}
-            style={{ height: 109.0, width: screenWidth - 40.0, resizeMode: 'contain' }}
+            source={require("../assets/images/logo1.png")}
+            style={{
+              height: 109.0,
+              width: screenWidth - 40.0,
+              resizeMode: "contain",
+            }}
           />
         </ImageBackground>
       </View>
