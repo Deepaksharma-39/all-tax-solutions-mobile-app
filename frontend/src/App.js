@@ -10,6 +10,7 @@ import Border from "./pages/Dashboard/pages/Border";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import Customer from "./pages/Dashboard/pages/Customer";
 import Banner from "./pages/Dashboard/pages/Banner";
+import Privacy from "./pages/Privacy";
 
 function App() {
   useEffect(() => {
@@ -29,7 +30,7 @@ function App() {
       <Fragment>
         <Routes>
         <Route exact path="/" element={<SignIn />} />
-        <Route exact path="/privacy" element={<SignIn />} />
+        <Route exact path="/privacy-policy" element={<Privacy />} />
         <Route exact path="/user-data" element={<SignIn />} />
           {/* Admin Section */}
           <Route exact path="/admin" element={<SignIn />} />
