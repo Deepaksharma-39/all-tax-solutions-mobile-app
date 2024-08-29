@@ -74,6 +74,10 @@ const Privacy = () => {
         </p>
 
         <p>
+        8. DISCLAIMER: This app is not affiliated with or endorsed by any government entity. We do not represent any government agency and do not claim to offer official government services. Our app provides information and services related to vehicle state tax for convenience purposes only.
+        </p>
+
+        <p>
         GRIEVANCES: If you have any queries about our privacy policy, or if you want to know what information we have collected about you, please contact us at alltaxsolutions44@gmail.com.
         </p>
     </div>

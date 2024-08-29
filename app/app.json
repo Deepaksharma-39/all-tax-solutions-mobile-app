@@ -20,7 +20,7 @@
   },
   "android": {
     "package": "com.allroadtaxsolutions",
-    "versionCode": 5,
+    "versionCode": 7,
     "adaptiveIcon": {
       "foregroundImage": "./assets/images/logo2.png",
       "backgroundColor": "#FFFFFF"

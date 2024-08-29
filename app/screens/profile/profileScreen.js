@@ -47,6 +47,11 @@ const ProfileScreen = ({ navigation,route  }) => {
             option: 'Terms and Conditions',
             navigateTo: 'TermsCondition',
           })}
+          {profileOptions({
+            optionIcon: require('../../assets/images/icons/list.png'),
+            option: 'Privacy Policy',
+            navigateTo: 'PrivacyPolicy',
+          })}
           {logoutOption()}
         </ScrollView>
         {logoutDialog()}

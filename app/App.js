@@ -18,6 +18,7 @@ import HelpScreen from './screens/help/helpScreen';
 import HelpDetailScreen from './screens/helpDetail/helpDetailScreen';
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import PrivacyPolicyScreen from './screens/privacyPolicy/privacyPolicy';
 
 ExpoSplashScreen.preventAutoHideAsync();
 
@@ -65,6 +66,7 @@ const App = () => {
           <Stack.Screen name="BorderTaxBooking" component={BorderTaxBookingDetailsScreen} />
           <Stack.Screen name="DownloadReciept" component={DownloadReceipt} />
           <Stack.Screen name="TermsCondition" component={TermsAndConditionsScreen} />
+          <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} />
           <Stack.Screen name="HelpDetail" component={HelpDetailScreen} />
 
         </Stack.Navigator>
