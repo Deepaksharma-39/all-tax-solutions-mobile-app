@@ -25,6 +25,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { applyPagination } from "../utils/apply-pagination";
 import { BannerTable } from "../sections/Banner/BannerTable";
+import { InsuranceTable } from "../sections/Insurance/INsuranceTable";
 
 
 const useCarriers = (data, page, rowsPerPage) => {
@@ -33,7 +34,7 @@ const useCarriers = (data, page, rowsPerPage) => {
     }, [data, page, rowsPerPage]);
 };
 
-function Office() {
+function Insurance() {
     const theme = createTheme();
     const token = window.localStorage.getItem("Token");
     const domain = process.env.REACT_APP_API_DOMAIN;
@@ -157,24 +158,24 @@ function Office() {
     };
 
 
-    useEffect(() => {
-        // Function to fetch data
-        setLoading(true);
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(`${domain}/banners`);
-                setFetchData(response.data); // Set the fetched data into state
-                console.log(response.data)
-                setLoading(false);
-            } catch (error) {
-                console.error("Error fetching data:", error);
-                setLoading(true);
-            }
-        };
+    // useEffect(() => {
+    //     // Function to fetch data
+    //     setLoading(true);
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await axios.get(`${domain}/banners`);
+    //             setFetchData(response.data); // Set the fetched data into state
+    //             console.log(response.data)
+    //             setLoading(false);
+    //         } catch (error) {
+    //             console.error("Error fetching data:", error);
+    //             setLoading(true);
+    //         }
+    //     };
 
-        // Call the fetch data function
-        fetchData();
-    }, [key]);
+    //     // Call the fetch data function
+    //     fetchData();
+    // }, [key]);
 
     return (
         <>
@@ -196,9 +197,9 @@ function Office() {
                                         spacing={4}
                                     >
                                         <Stack spacing={1}>
-                                            <Typography variant="h4">Banner Images</Typography>
+                                            <Typography variant="h4">Insurance Query</Typography>
                                         </Stack>
-                                        <div>
+                                        {/* <div>
                                             <Button
                                                 startIcon={
                                                     <SvgIcon fontSize="small">
@@ -212,13 +213,13 @@ function Office() {
                                             >
                                                 Add
                                             </Button>
-                                        </div>
+                                        </div> */}
 
                                     </Stack>
                                     {loading ? (
                                         <CircularProgress />
                                     ) : (
-                                        <BannerTable
+                                        <InsuranceTable
                                             count={fetchData.length}
                                             items={paginationData}
                                             onPageChange={handlePageChange}
@@ -321,4 +322,4 @@ function Office() {
     );
 }
 
-export default Office;
+export default Insurance;

@@ -11,6 +11,9 @@ import ProtectedRoute from "./utils/ProtectedRoute";
 import Customer from "./pages/Dashboard/pages/Customer";
 import Banner from "./pages/Dashboard/pages/Banner";
 import Privacy from "./pages/Privacy";
+import Insurance from "./pages/Dashboard/pages/Insurance";
+import Jobs from "./pages/Dashboard/pages/Jobs";
+import Cars from "./pages/Dashboard/pages/Cars";
 
 function App() {
   useEffect(() => {
@@ -40,6 +43,9 @@ function App() {
             <Route exact path="/admin/border" element={<Border />} />
             <Route exact path="/admin/users" element={<Customer />} />
             <Route exact path="/admin/banners" element={<Banner />} />
+            <Route exact path="/admin/insurance" element={<Insurance />} />
+            <Route exact path="/admin/cars" element={<Cars />} />
+            <Route exact path="/admin/jobs" element={<Jobs />} />
 
           </Route>
 

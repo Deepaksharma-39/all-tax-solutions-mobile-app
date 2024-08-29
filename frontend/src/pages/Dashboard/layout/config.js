@@ -1,7 +1,7 @@
 import UserIcon from "@heroicons/react/24/solid/UserIcon";
 
 import { SvgIcon } from "@mui/material";
-import { EmojiTransportationSharp } from "@mui/icons-material";
+import { EmojiTransportationSharp,FeaturedPlayList,DriveEta,GroupWork } from "@mui/icons-material";
 import {  FaUsers,FaImages } from "react-icons/fa";
 
 
@@ -41,5 +41,32 @@ export const items = [
        <FaImages />
       </SvgIcon>
     ),
-  }
+  },
+  {
+    title: "Insurance",
+    path: "/admin/insurance",
+    icon: (
+      <SvgIcon fontSize="small">
+       <FeaturedPlayList />
+      </SvgIcon>
+    ),
+  },
+  {
+    title: "Car Listing",
+    path: "/admin/cars",
+    icon: (
+      <SvgIcon fontSize="small">
+       <DriveEta />
+      </SvgIcon>
+    ),
+  },
+  {
+    title: "Job Listing",
+    path: "/admin/jobs",
+    icon: (
+      <SvgIcon fontSize="small">
+       <GroupWork />
+      </SvgIcon>
+    ),
+  },
 ];
