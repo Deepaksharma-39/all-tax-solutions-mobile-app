@@ -27,6 +27,9 @@ async function initialize() {
   db.Venue = require("../mvc/venue/venue.model")(sequelize);
   db.Enquiry = require("../mvc/enquiry/enquiry.model")(sequelize);
   db.Banner = require("../mvc/banner/banner.model")(sequelize);
+  db.Car = require("../mvc/cars/car.model")(sequelize);
+  db.Insurance = require("../mvc/Insurance/Insurance.model")(sequelize);
+  db.JobListing = require("../mvc/Jobs/Jobs.model")(sequelize);
   
    // sync all models with database
   await sequelize.sync();

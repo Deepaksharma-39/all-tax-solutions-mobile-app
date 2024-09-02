@@ -128,8 +128,6 @@ app.route('/admin/banner/:name').get((req, res) => {
   });
 });
 
-
-
 app.route('/admin/banner/:name').get((req, res) => {
   const name = req.params.name;
  fs.readdir(bannerPath, (err, name) => {
@@ -149,6 +147,9 @@ app.use("/users", require("./mvc/users/user.controller"));
 app.use("/venue", require("./mvc/venue/venue.controller"));
 app.use("/enquiry", require("./mvc/enquiry/enquiry.controller"));
 app.use("/banners", require("./mvc/banner/banner.controller"));
+app.use("/jobs", require("./mvc/Jobs/Jobs.controller"));
+app.use("/insurance", require("./mvc/Insurance/Insurance.controller"));
+app.use("/cars", require("./mvc/cars/car.controller"));
 
 app.post('/email', async (req, res) => {
 

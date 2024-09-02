@@ -1,38 +1,38 @@
 const express = require('express');
 const router = express.Router();
 const authorize = require('../../_middleware/authorize');
-const CarService = require('./car.service');
+const JobListingService = require('./Jobs.service');
 
 // Routes
 router.get('/', getAll);
 router.post('/', authorize(['admin', 'user']), create);
 router.get('/:id', getById);
 router.put('/:id', authorize(['admin']), update);
-router.delete('/:id', authorize(['admin']), _delete);
+router.delete('/:id', authorize(['admin', 'user']), _delete);
 router.get('/user/:userId', authorize(['admin', 'user']), getByUserId);
 
 async function getAll(req, res, next) {
-    CarService.getCarService(req, res);
+    JobListingService.getJobListingService(req, res);
 }
 
 async function create(req, res, next) {
-    CarService.postCarService(req, res);
+    JobListingService.postJobListingService(req, res);
 }
 
 async function getById(req, res, next) {
-    CarService.getCarByIdService(req, res);
+    JobListingService.getJobListingByIdService(req, res);
 }
 
 async function update(req, res, next) {
-    CarService.updateCarService(req, res);
+    JobListingService.updateJobListingService(req, res);
 }
 
 async function _delete(req, res, next) {
-    CarService.deleteCarService(req, res);
+    JobListingService.deleteJobListingService(req, res);
 }
 
 async function getByUserId(req, res, next) {
-    CarService.getCarByUserIdService(req, res);
+    JobListingService.getJobListingByUserIdService(req, res);
 }
 
 module.exports = router;
