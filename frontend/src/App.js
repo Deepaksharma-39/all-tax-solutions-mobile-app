@@ -14,6 +14,7 @@ import Privacy from "./pages/Privacy";
 import Insurance from "./pages/Dashboard/pages/Insurance";
 import Jobs from "./pages/Dashboard/pages/Jobs";
 import Cars from "./pages/Dashboard/pages/Cars";
+import LandingPage from "./Landing";
 
 function App() {
   useEffect(() => {
@@ -32,6 +33,7 @@ function App() {
 
       <Fragment>
         <Routes>
+        <Route exact path="/" element={<LandingPage />} />
         <Route exact path="/" element={<SignIn />} />
         <Route exact path="/privacy-policy" element={<Privacy />} />
         <Route exact path="/user-data" element={<SignIn />} />
