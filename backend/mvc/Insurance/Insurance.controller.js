@@ -5,7 +5,7 @@ const insuranceService = require('./Insurance.service');
 
 // Routes
 router.get('/', getAll);
-router.post('/', authorize(['admin']), postInsurance);
+router.post('/', authorize(['admin', 'user']), postInsurance);
 router.delete('/:id', authorize(['admin']), deleteInsurance);
 router.get('/user/:userId', authorize(['admin', 'user']), getByUserId);
 
